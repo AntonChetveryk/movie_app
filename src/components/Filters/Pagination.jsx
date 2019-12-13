@@ -22,7 +22,7 @@ export default class Pagination extends React.Component {
             Вперед
           </button>
         </div>
-        <div className="total-pages">{`${page} из ${total_pages}`}</div>
+        <div className="total-pages mt-2">{`${page} из ${total_pages}`}</div>
       </div>
     );
   }

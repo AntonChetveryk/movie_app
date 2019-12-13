@@ -11,7 +11,8 @@ export default class Filters extends React.Component {
       onChangeFilters,
       onChangePage,
       page,
-      total_pages
+      total_pages,
+      onReset
     } = this.props;
     return (
       <form className="mb-3">
@@ -20,6 +21,9 @@ export default class Filters extends React.Component {
           primary_release_year={primary_release_year}
           onChangeFilters={onChangeFilters}
         />
+        <button type="button" onClick={onReset}>
+          Сбросить фильтры
+        </button>
         <Pagination
           page={page}
           onChangePage={onChangePage}
