@@ -5,7 +5,7 @@ import MoviesList from "./Movies/MoviesList";
 export default class App extends React.Component {
   constructor() {
     super();
-    this.state = {
+    this.initialState = {
       filters: {
         sort_by: "popularity.desc",
         primary_release_year: "2019"
@@ -13,10 +13,11 @@ export default class App extends React.Component {
       page: 1,
       total_pages: ""
     };
+    this.state = this.initialState;
   }
 
   onChangeFilters = event => {
-    console.log("OnChange", event.target.name, event.target.value);
+    //console.log("OnChange", event.target.name, event.target.value);
     const newFilters = {
       ...this.state.filters,
       [event.target.name]: event.target.value
@@ -39,6 +40,12 @@ export default class App extends React.Component {
     });
   };
 
+  onReset = event => {
+    console.log("onReset");
+    event.preventDefault();
+    this.setState(this.initialState);
+  };
+
   render() {
     //console.log("App render");
     const { filters, page, total_pages } = this.state;
@@ -55,6 +62,7 @@ export default class App extends React.Component {
                   onChangeFilters={this.onChangeFilters}
                   onChangePage={this.onChangePage}
                   total_pages={total_pages}
+                  onReset={this.onReset}
                 />
               </div>
             </div>

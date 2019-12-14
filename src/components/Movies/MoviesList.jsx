@@ -22,6 +22,7 @@ export default class MovieList extends Component {
         this.setState({
           movies: data.results
         });
+        console.log("render");
         this.props.setTotalPage(data.total_pages);
       });
   };
@@ -35,8 +36,8 @@ export default class MovieList extends Component {
   //   }
   // }
   componentDidUpdate(prevProps) {
-    console.log("props: ", this.props);
-    console.log("prevProps: ", prevProps);
+    //console.log("props: ", this.props);
+    //console.log("prevProps: ", prevProps);
 
     if (
       this.props.filters.sort_by !== prevProps.filters.sort_by ||

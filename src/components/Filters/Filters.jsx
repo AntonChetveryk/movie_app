@@ -21,7 +21,7 @@ export default class Filters extends React.Component {
           primary_release_year={primary_release_year}
           onChangeFilters={onChangeFilters}
         />
-        <button type="button" onClick={onReset}>
+        <button type="button" className="mb-2" onClick={onReset}>
           Сбросить фильтры
         </button>
         <Pagination
