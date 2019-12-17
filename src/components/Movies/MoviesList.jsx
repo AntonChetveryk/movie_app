@@ -34,7 +34,7 @@ export default class MovieList extends Component {
         return response.json();
       })
       .then(data => {
-        this.props.setGenre(data.genres);
+        this.props.setGenre(data.genre);
         console.log(data.genres);
       });
   };
