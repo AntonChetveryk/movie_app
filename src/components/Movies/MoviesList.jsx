@@ -27,20 +27,7 @@ export default class MovieList extends Component {
       });
   };
 
-  getGenres = () => {
-    const link = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY_3}&language=ru-RU`;
-    fetch(link)
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.props.setGenre(data.genre);
-        console.log(data.genres);
-      });
-  };
-
   componentDidMount() {
-    this.getGenres();
     this.getMovies(this.props.filters, this.props.page);
   }
 

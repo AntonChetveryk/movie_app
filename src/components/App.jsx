@@ -47,15 +47,6 @@ export default class App extends React.Component {
     this.setState(this.initialState);
   };
 
-  setGenre = genres => {
-    this.setState({
-      filters: {
-        ...this.state.filters,
-        genres
-      }
-    });
-  };
-
   render() {
     //console.log("App render");
     const { filters, page, total_pages } = this.state;
