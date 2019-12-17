@@ -9,7 +9,7 @@ export default class App extends React.Component {
       filters: {
         sort_by: "popularity.desc",
         primary_release_year: "2019",
-        genre
+        genre: ""
       },
       page: 1,
       total_pages: ""
@@ -45,6 +45,15 @@ export default class App extends React.Component {
     console.log("onReset");
     event.preventDefault();
     this.setState(this.initialState);
+  };
+
+  setGenre = genres => {
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        genres
+      }
+    });
   };
 
   render() {
