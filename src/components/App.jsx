@@ -9,7 +9,7 @@ export default class App extends React.Component {
       filters: {
         sort_by: "popularity.desc",
         primary_release_year: "2019",
-        genres: ""
+        with_genres: []
       },
       page: 1,
       total_pages: ""
@@ -18,7 +18,7 @@ export default class App extends React.Component {
   }
 
   onChangeFilters = event => {
-    //console.log("OnChange", event.target.name, event.target.value);
+    console.log("OnChangeFilters", event.target.name, event.target.value);
     const newFilters = {
       ...this.state.filters,
       [event.target.name]: event.target.value
@@ -26,6 +26,22 @@ export default class App extends React.Component {
     this.setState(state => ({
       filters: newFilters
     }));
+  };
+
+  onChangeGenres = event => {
+    console.log(event.target.checked);
+
+    if (event.target.checked) {
+      const newWith_genres = this.state.filters.with_genres;
+      newWith_genres.push(event.target.value);
+      const newFilters = {
+        ...this.state.filters,
+        with_genres: newWith_genres
+      };
+      this.setState(state => ({
+        filters: newFilters
+      }));
+    }
   };
 
   onChangePage = page => {
@@ -64,6 +80,8 @@ export default class App extends React.Component {
                   onChangePage={this.onChangePage}
                   total_pages={total_pages}
                   onReset={this.onReset}
+                  setGenre={this.setGenre}
+                  onChangeGenres={this.onChangeGenres}
                 />
               </div>
             </div>

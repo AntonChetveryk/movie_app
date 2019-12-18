@@ -11,18 +11,18 @@ export default class MovieList extends Component {
     };
   }
   getMovies = (filters, page) => {
-    const { sort_by, primary_release_year } = filters;
-    const link = `${API_URL}/discover/movie?api_key=${API_KEY_3}&language=ru-RU&sort_by=${sort_by}&page=${page}&primary_release_year=${+primary_release_year}`;
+    const { sort_by, primary_release_year, with_genres } = filters;
+    const link = `${API_URL}/discover/movie?api_key=${API_KEY_3}&language=ru-RU&sort_by=${sort_by}&page=${page}&primary_release_year=${+primary_release_year}&with_genres=${with_genres.join()}`;
     fetch(link)
       .then(response => {
         return response.json();
       })
       .then(data => {
-        console.log(data);
+        //console.log(data);
         this.setState({
           movies: data.results
         });
-        console.log("render");
+        //console.log("render");
         this.props.setTotalPage(data.total_pages);
       });
   };
