@@ -1,15 +1,8 @@
 import React from "react";
-import Genres from "./Genres";
 
 export default class Pagination extends React.Component {
   render() {
-    const {
-      onChangePage,
-      page,
-      total_pages,
-      genres,
-      onChangeGenres
-    } = this.props;
+    const { onChangePage, page, total_pages } = this.props;
 
     return (
       <div>
@@ -31,11 +24,6 @@ export default class Pagination extends React.Component {
           </button>
         </div>
         <div className="total-pages mt-2">{`${page} из ${total_pages}`}</div>
-        <Genres
-          onChangeGenres={onChangeGenres}
-          genres={genres}
-          with_genres={this.props.with_genres}
-        />
       </div>
     );
   }

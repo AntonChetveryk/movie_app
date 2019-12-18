@@ -3,6 +3,7 @@ import SortBy from "./SortBy";
 import SortByYears from "./SortByYears";
 import Pagination from "./Pagination";
 import { API_KEY_3 } from "../../api/api";
+import Genres from "./Genres";
 
 export default class Filters extends React.Component {
   constructor() {
@@ -56,8 +57,12 @@ export default class Filters extends React.Component {
           page={page}
           onChangePage={onChangePage}
           total_pages={total_pages}
-          genres={this.state.genres}
           onChangeGenres={onChangeGenres}
+          with_genres={with_genres}
+        />
+        <Genres
+          onChangeGenres={onChangeGenres}
+          genres={this.state.genres}
           with_genres={with_genres}
         />
       </form>

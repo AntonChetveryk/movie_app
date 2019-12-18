@@ -65,7 +65,7 @@ export default class App extends React.Component {
 
   render() {
     //console.log("App render");
-    const { filters, page, total_pages } = this.state;
+    const { filters, page, total_pages, genres } = this.state;
     return (
       <div className="container">
         <div className="row mt-4">
