@@ -5,7 +5,7 @@ export default class Genres extends React.Component {
     console.log(prevProps);
   }
   render() {
-    const { genres, onChangeGenres, with_genres } = this.props;
+    const { genres, onChangeGenres } = this.props;
     return (
       <div className="genres">
         {genres.map(genre => (
