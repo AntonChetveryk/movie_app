@@ -33,7 +33,10 @@ export default class App extends React.Component {
 
     if (event.target.checked) {
       const newWith_genres = this.state.filters.with_genres;
-      newWith_genres.push(event.target.value);
+      if (!newWith_genres.includes(event.target.value, 0)) {
+        newWith_genres.push(event.target.value);
+      }
+
       const newFilters = {
         ...this.state.filters,
         with_genres: newWith_genres
