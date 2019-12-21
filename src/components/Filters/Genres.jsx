@@ -1,9 +1,9 @@
 import React from "react";
 
 export default class Genres extends React.Component {
-  componentDidUpdate(prevProps) {
-    console.log(prevProps);
-  }
+  //   componentDidUpdate(prevProps) {
+  //     console.log(prevProps);
+  //   }
   render() {
     const { genres, onChangeGenres } = this.props;
     return (

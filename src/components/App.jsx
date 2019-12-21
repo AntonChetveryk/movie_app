@@ -32,17 +32,29 @@ export default class App extends React.Component {
     console.log(event.target.checked);
 
     if (event.target.checked) {
-      const newWith_genres = this.state.filters.with_genres;
-      if (!newWith_genres.includes(event.target.value, 0)) {
-        newWith_genres.push(event.target.value);
+      const new_with_genres = [...this.state.filters.with_genres];
+      if (!new_with_genres.includes(event.target.value, 0)) {
+        new_with_genres.push(event.target.value);
       }
 
-      const newFilters = {
+      const new_filters = {
         ...this.state.filters,
-        with_genres: newWith_genres
+        with_genres: new_with_genres
       };
       this.setState(state => ({
-        filters: newFilters
+        filters: new_filters
+      }));
+    } else {
+      const new_with_genres = [...this.state.filters.with_genres];
+      const new_with_genres_filter = new_with_genres.filter(genre => {
+        return genre !== event.target.value;
+      });
+      const new_filters = {
+        ...this.state.filters,
+        with_genres: new_with_genres_filter
+      };
+      this.setState(state => ({
+        filters: new_filters
       }));
     }
   };
@@ -60,10 +72,11 @@ export default class App extends React.Component {
     });
   };
 
-  onReset = event => {
-    console.log("onReset");
+  onReset = (event, genres) => {
+    //console.log("onReset");
     event.preventDefault();
     this.setState(this.initialState);
+    // for(genre in genres)
   };
 
   render() {
