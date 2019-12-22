@@ -17,46 +17,16 @@ export default class App extends React.Component {
     this.state = this.initialState;
   }
 
-  onChangeFilters = event => {
-    console.log("OnChangeFilters", event.target.name, event.target.value);
-    const newFilters = {
-      ...this.state.filters,
-      [event.target.name]: event.target.value
-    };
+  onChangeFilters = (event, with_genres = this.state.filters.with_genres) => {
+    const { name, value } = event.target;
+
     this.setState(state => ({
-      filters: newFilters
-    }));
-  };
-
-  onChangeGenres = event => {
-    console.log(event.target.checked);
-
-    if (event.target.checked) {
-      const new_with_genres = [...this.state.filters.with_genres];
-      if (!new_with_genres.includes(event.target.value, 0)) {
-        new_with_genres.push(event.target.value);
+      filters: {
+        ...state.filters,
+        [name]: value,
+        with_genres
       }
-
-      const new_filters = {
-        ...this.state.filters,
-        with_genres: new_with_genres
-      };
-      this.setState(state => ({
-        filters: new_filters
-      }));
-    } else {
-      const new_with_genres = [...this.state.filters.with_genres];
-      const new_with_genres_filter = new_with_genres.filter(genre => {
-        return genre !== event.target.value;
-      });
-      const new_filters = {
-        ...this.state.filters,
-        with_genres: new_with_genres_filter
-      };
-      this.setState(state => ({
-        filters: new_filters
-      }));
-    }
+    }));
   };
 
   onChangePage = page => {
@@ -97,7 +67,6 @@ export default class App extends React.Component {
                   total_pages={total_pages}
                   onReset={this.onReset}
                   setGenre={this.setGenre}
-                  onChangeGenres={this.onChangeGenres}
                 />
               </div>
             </div>

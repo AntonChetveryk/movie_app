@@ -41,7 +41,7 @@ export default class Filters extends React.Component {
       page,
       total_pages,
       onReset,
-      onChangeGenres
+      filters
     } = this.props;
     return (
       <form className="mb-3">
@@ -57,13 +57,14 @@ export default class Filters extends React.Component {
           page={page}
           onChangePage={onChangePage}
           total_pages={total_pages}
-          onChangeGenres={onChangeGenres}
+          onChangeFilters={onChangeFilters}
           with_genres={with_genres}
         />
         <Genres
-          onChangeGenres={onChangeGenres}
+          onChangeFilters={onChangeFilters}
           genres={this.state.genres}
           with_genres={with_genres}
+          filters={filters}
         />
       </form>
     );
