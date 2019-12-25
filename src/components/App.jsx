@@ -17,21 +17,19 @@ export default class App extends React.Component {
     this.state = this.initialState;
   }
 
-  onChangeFilters = (event, with_genres = this.state.filters.with_genres) => {
+  onChangeFilters = event => {
     const { name, value } = event.target;
 
     this.setState(state => ({
       filters: {
         ...state.filters,
-        [name]: value,
-        with_genres
+        [name]: value
       }
     }));
   };
 
   onChangePage = page => {
     this.setState({
-      // page: page
       page
     });
   };
@@ -43,14 +41,11 @@ export default class App extends React.Component {
   };
 
   onReset = (event, genres) => {
-    //console.log("onReset");
     event.preventDefault();
     this.setState(this.initialState);
-    // for(genre in genres)
   };
 
   render() {
-    //console.log("App render");
     const { filters, page, total_pages } = this.state;
     return (
       <div className="container">

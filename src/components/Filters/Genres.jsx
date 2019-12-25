@@ -1,29 +1,48 @@
 import React from "react";
+import { API_KEY_3 } from "../../api/api";
 
 export default class Genres extends React.Component {
-  //   componentDidUpdate(prevProps) {
-  //     console.log(prevProps);
-  //   }
+  constructor() {
+    super();
+    this.state = {
+      genres: []
+    };
+  }
+
+  getGenres = () => {
+    const link = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY_3}&language=ru-RU`;
+    fetch(link)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        this.setState({
+          genres: data.genres
+        });
+      });
+  };
+
+  componentDidMount() {
+    this.getGenres();
+  }
 
   onChangeGenres = event => {
-    //console.log(event.target.checked);
     const { with_genres } = this.props;
-    const id = event.target.value;
-    let newGenres = [];
+    const { value, checked } = event.target;
 
-    if (event.target.checked) {
-      newGenres = [...with_genres, id];
-      console.log("Checked " + newGenres);
-    } else {
-      newGenres = with_genres.filter(el => el !== id);
-      console.log("notChecked " + newGenres);
-    }
-
-    this.props.onChangeFilters(event, newGenres);
+    this.props.onChangeFilters({
+      target: {
+        name: "with_genres",
+        value: checked
+          ? [...with_genres, value]
+          : with_genres.filter(el => el !== value)
+      }
+    });
   };
 
   render() {
-    const { genres } = this.props;
+    const { genres } = this.state;
+
     return (
       <div className="genres">
         {genres.map(genre => (
@@ -34,6 +53,7 @@ export default class Genres extends React.Component {
               id={genre.id}
               value={genre.id}
               onChange={this.onChangeGenres}
+              checked={this.props.with_genres.includes(genre.id)}
             />
             <label htmlFor={genre.id} className="ml-2">
               {genre.name}
