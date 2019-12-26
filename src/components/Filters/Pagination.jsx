@@ -19,6 +19,7 @@ export default class Pagination extends React.Component {
             type="button"
             className="btn btn-light"
             onClick={onChangePage.bind(null, page + 1)}
+            disabled={page === total_pages}
           >
             Вперед
           </button>

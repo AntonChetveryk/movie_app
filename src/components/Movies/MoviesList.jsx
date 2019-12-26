@@ -31,12 +31,11 @@ export default class MovieList extends Component {
         return response.json();
       })
       .then(data => {
-        //console.log(data);
         this.setState({
           movies: data.results
         });
-        //console.log("render");
-        this.props.setTotalPage(data.total_pages);
+
+        this.props.onChangeTotalPage(data.total_pages);
       });
   };
 
@@ -44,15 +43,7 @@ export default class MovieList extends Component {
     this.getMovies(this.props.filters, this.props.page);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.filters.sort_by !== this.props.filters.sort_by) {
-  //     this.getMovies(nextProps.filters);
-  //   }
-  // }
   componentDidUpdate(prevProps) {
-    //console.log("props: ", this.props);
-    //console.log("prevProps: ", prevProps);
-
     if (this.props.filters !== prevProps.filters) {
       this.props.onChangePage(1);
       this.getMovies(this.props.filters, 1);
@@ -63,7 +54,6 @@ export default class MovieList extends Component {
   }
 
   render() {
-    //console.log("ML render");
     const { movies } = this.state;
     return (
       <div className="row">

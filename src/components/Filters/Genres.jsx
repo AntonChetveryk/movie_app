@@ -53,7 +53,7 @@ export default class Genres extends React.Component {
               id={genre.id}
               value={genre.id}
               onChange={this.onChangeGenres}
-              checked={this.props.with_genres.includes(genre.id)}
+              checked={this.props.with_genres.includes(String(genre.id))}
             />
             <label htmlFor={genre.id} className="ml-2">
               {genre.name}

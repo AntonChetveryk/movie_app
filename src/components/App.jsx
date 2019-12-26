@@ -34,7 +34,7 @@ export default class App extends React.Component {
     });
   };
 
-  setTotalPage = total_pages => {
+  onChangeTotalPage = total_pages => {
     this.setState({
       total_pages
     });
@@ -51,7 +51,7 @@ export default class App extends React.Component {
       <div className="container">
         <div className="row mt-4">
           <div className="col-4">
-            <div className="card" style={{ width: "100%" }}>
+            <div className="card">
               <div className="card-body">
                 <h3>Фильтры:</h3>
                 <Filters
@@ -61,7 +61,6 @@ export default class App extends React.Component {
                   onChangePage={this.onChangePage}
                   total_pages={total_pages}
                   onReset={this.onReset}
-                  setGenre={this.setGenre}
                 />
               </div>
             </div>
@@ -72,7 +71,7 @@ export default class App extends React.Component {
               page={page}
               onChangePage={this.onChangePage}
               total_pages={total_pages}
-              setTotalPage={this.setTotalPage}
+              onChangeTotalPage={this.onChangeTotalPage}
             />
           </div>
         </div>
