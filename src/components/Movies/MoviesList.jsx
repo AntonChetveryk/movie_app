@@ -20,22 +20,25 @@ export default class MovieList extends Component {
       page,
       primary_release_year
     };
+    const { onChangeIsLoading, onChangeTotalPage } = this.props;
     if (with_genres.length > 0) {
       queryStringParams.with_genres = with_genres.join(",");
     }
     const link = `${API_URL}/discover/movie?${queryString.stringify(
       queryStringParams
     )}`;
+    onChangeIsLoading();
     fetch(link)
       .then(response => {
         return response.json();
       })
       .then(data => {
+        onChangeIsLoading();
         this.setState({
           movies: data.results
         });
 
-        this.props.onChangeTotalPage(data.total_pages);
+        onChangeTotalPage(data.total_pages);
       });
   };
 
@@ -55,15 +58,24 @@ export default class MovieList extends Component {
 
   render() {
     const { movies } = this.state;
+    const { isLoading } = this.props;
     return (
-      <div className="row">
-        {movies.map(movie => {
-          return (
-            <div key={movie.id} className="col-6 mb-4">
-              <MovieItem item={movie} />
-            </div>
-          );
-        })}
+      <div className="row movies-list-container">
+        {isLoading ? (
+          <img
+            src="http://shtabso.cms02.prostoy.biz/theme/imgs/spinner.gif"
+            alt="loading"
+            className="loading"
+          />
+        ) : (
+          movies.map(movie => {
+            return (
+              <div key={movie.id} className="col-6 mb-4">
+                <MovieItem item={movie} />
+              </div>
+            );
+          })
+        )}
       </div>
     );
   }

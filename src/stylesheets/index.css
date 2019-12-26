@@ -5,3 +5,9 @@ body {
 .total-pages {
   text-align: center;
 }
+
+.loading {
+  display: block;
+  margin: auto;
+  margin-top: 45%;
+}
