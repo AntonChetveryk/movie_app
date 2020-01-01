@@ -1,8 +1,13 @@
 import React from "react";
 
 export default class Pagination extends React.Component {
+  handleClick = newPage => {
+    return () => {
+      this.props.onChangePage(newPage);
+    };
+  };
   render() {
-    const { onChangePage, page, total_pages } = this.props;
+    const { page, total_pages } = this.props;
 
     return (
       <div>
@@ -10,7 +15,7 @@ export default class Pagination extends React.Component {
           <button
             type="button"
             className="btn btn-light"
-            onClick={onChangePage.bind(null, page - 1)}
+            onClick={this.handleClick(page - 1)}
             disabled={page === 1}
           >
             Назад
@@ -18,7 +23,7 @@ export default class Pagination extends React.Component {
           <button
             type="button"
             className="btn btn-light"
-            onClick={onChangePage.bind(null, page + 1)}
+            onClick={this.handleClick(page + 1)}
             disabled={page === total_pages}
           >
             Вперед

@@ -1,7 +1,7 @@
 import React from "react";
 import { API_KEY_3 } from "../../api/api";
 
-export default class Genres extends React.Component {
+export default class Genres extends React.PureComponent {
   constructor() {
     super();
     this.state = {

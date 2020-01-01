@@ -12,8 +12,7 @@ export default class App extends React.Component {
         with_genres: []
       },
       page: 1,
-      total_pages: "",
-      isLoading: false
+      total_pages: ""
     };
     this.state = this.initialState;
   }
@@ -46,14 +45,8 @@ export default class App extends React.Component {
     this.setState(this.initialState);
   };
 
-  onChangeIsLoading = () => {
-    this.setState({
-      isLoading: !this.state.isLoading
-    });
-  };
-
   render() {
-    const { filters, page, total_pages, isLoading } = this.state;
+    const { filters, page, total_pages } = this.state;
     return (
       <div className="container">
         <div className="row mt-4">
@@ -79,8 +72,6 @@ export default class App extends React.Component {
               onChangePage={this.onChangePage}
               total_pages={total_pages}
               onChangeTotalPage={this.onChangeTotalPage}
-              isLoading={isLoading}
-              onChangeIsLoading={this.onChangeIsLoading}
             />
           </div>
         </div>

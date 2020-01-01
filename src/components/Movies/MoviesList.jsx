@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MovieItem from "./MovieItem";
 import { API_URL, API_KEY_3 } from "../../api/api";
+import Spinner from "../../img/spinner.gif";
 const queryString = require("query-string");
 
 export default class MovieList extends Component {
@@ -8,7 +9,8 @@ export default class MovieList extends Component {
     super();
 
     this.state = {
-      movies: []
+      movies: [],
+      isLoading: false
     };
   }
   getMovies = (filters, page) => {
@@ -20,20 +22,26 @@ export default class MovieList extends Component {
       page,
       primary_release_year
     };
-    const { onChangeIsLoading, onChangeTotalPage } = this.props;
+    const { onChangeTotalPage } = this.props;
     if (with_genres.length > 0) {
       queryStringParams.with_genres = with_genres.join(",");
     }
     const link = `${API_URL}/discover/movie?${queryString.stringify(
       queryStringParams
     )}`;
-    onChangeIsLoading();
+
+    this.setState({
+      isLoading: !this.state.isLoading
+    });
+
     fetch(link)
       .then(response => {
         return response.json();
       })
       .then(data => {
-        onChangeIsLoading();
+        this.setState({
+          isLoading: !this.state.isLoading
+        });
         this.setState({
           movies: data.results
         });
@@ -57,16 +65,12 @@ export default class MovieList extends Component {
   }
 
   render() {
-    const { movies } = this.state;
-    const { isLoading } = this.props;
+    const { movies, isLoading } = this.state;
+
     return (
       <div className="row movies-list-container">
         {isLoading ? (
-          <img
-            src="http://shtabso.cms02.prostoy.biz/theme/imgs/spinner.gif"
-            alt="loading"
-            className="loading"
-          />
+          <img src={Spinner} alt="loading" className="loading" />
         ) : (
           movies.map(movie => {
             return (
