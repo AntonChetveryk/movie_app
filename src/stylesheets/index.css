@@ -15,3 +15,7 @@ body {
 .invalid-feedback {
   display: block;
 }
+
+.border-red {
+  border: 1px solid red;
+}

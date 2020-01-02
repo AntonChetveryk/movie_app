@@ -44,7 +44,11 @@ export default class LoginForm extends React.Component {
     }
 
     if (this.state.password === "") {
-      errors.password = "Not empty";
+      errors.password = "Обязательное";
+    }
+
+    if (this.state.repeatPassword !== this.state.password) {
+      errors.repeatPassword = "Должен быть равен паролю";
     }
 
     return errors;
@@ -148,7 +152,9 @@ export default class LoginForm extends React.Component {
             <label htmlFor="username">Пользователь</label>
             <input
               type="text"
-              className="form-control"
+              className={
+                errors.username ? "form-control border-red" : "form-control"
+              }
               id="username"
               placeholder="Пользователь"
               name="username"
@@ -164,7 +170,9 @@ export default class LoginForm extends React.Component {
             <label htmlFor="password">Пароль</label>
             <input
               type="password"
-              className="form-control"
+              className={
+                errors.password ? "form-control border-red" : "form-control"
+              }
               id="password"
               placeholder="Пароль"
               name="password"
@@ -180,7 +188,11 @@ export default class LoginForm extends React.Component {
             <label htmlFor="repeatPassword">Повторите пароль</label>
             <input
               type="password"
-              className="form-control"
+              className={
+                errors.repeatPassword
+                  ? "form-control border-red"
+                  : "form-control"
+              }
               id="repeatPassword"
               placeholder="Повторите пароль"
               name="repeatPassword"
@@ -188,8 +200,8 @@ export default class LoginForm extends React.Component {
               onChange={this.onChange}
               onBlur={this.handleBlur}
             />
-            {errors.password && (
-              <div className="invalid-feedback">{errors.password}</div>
+            {errors.repeatPassword && (
+              <div className="invalid-feedback">{errors.repeatPassword}</div>
             )}
           </div>
           <button
