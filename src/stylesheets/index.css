@@ -11,3 +11,7 @@ body {
   margin: auto;
   margin-top: 35%;
 }
+
+.invalid-feedback {
+  display: block;
+}
