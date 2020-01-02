@@ -1,10 +1,11 @@
 import React from "react";
-import { API_URL, API_KEY_3 } from "../../../api/api";
+import { API_URL, API_KEY_3, fetchApi } from "../../../api/api";
 
 export default class LoginForm extends React.Component {
   state = {
     username: "",
     password: "",
+    repeatPassword: "",
     errors: {},
     submitting: false
   };
@@ -16,6 +17,7 @@ export default class LoginForm extends React.Component {
       [name]: value,
       errors: {
         ...prevState.errors,
+        base: null,
         [name]: null
       }
     }));
@@ -49,26 +51,6 @@ export default class LoginForm extends React.Component {
   };
 
   onSubmit = () => {
-    const fetchApi = (url, options = {}) => {
-      return new Promise((resolve, reject) => {
-        fetch(url, options)
-          .then(response => {
-            if (response.status < 400) {
-              return response.json();
-            } else {
-              throw response;
-            }
-          })
-          .then(data => {
-            resolve(data);
-          })
-          .catch(response => {
-            response.json().then(error => {
-              reject(error);
-            });
-          });
-      });
-    };
     this.setState({
       submitting: true
     });
@@ -110,7 +92,14 @@ export default class LoginForm extends React.Component {
         );
       })
       .then(data => {
-        console.log("session", data);
+        this.props.updateSessionId(data.session_id);
+        //4
+        return fetchApi(
+          `${API_URL}/account?api_key=${API_KEY_3}&session_id=${data.session_id}`
+        );
+      })
+      .then(user => {
+        this.props.updateUser(user);
         this.setState({
           submitting: false
         });
@@ -142,7 +131,13 @@ export default class LoginForm extends React.Component {
   };
 
   render() {
-    const { username, password, errors, submitting } = this.state;
+    const {
+      username,
+      password,
+      repeatPassword,
+      errors,
+      submitting
+    } = this.state;
     return (
       <div className="form-login-container">
         <form className="form-login">
@@ -174,6 +169,22 @@ export default class LoginForm extends React.Component {
               placeholder="Пароль"
               name="password"
               value={password}
+              onChange={this.onChange}
+              onBlur={this.handleBlur}
+            />
+            {errors.password && (
+              <div className="invalid-feedback">{errors.password}</div>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="repeatPassword">Повторите пароль</label>
+            <input
+              type="password"
+              className="form-control"
+              id="repeatPassword"
+              placeholder="Повторите пароль"
+              name="repeatPassword"
+              value={repeatPassword}
               onChange={this.onChange}
               onBlur={this.handleBlur}
             />
