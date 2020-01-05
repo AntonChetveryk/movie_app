@@ -1,5 +1,6 @@
 import React from "react";
 import { API_URL, API_KEY_3, fetchApi } from "../../../api/api";
+import classNames from "classnames";
 
 export default class LoginForm extends React.Component {
   state = {
@@ -104,10 +105,12 @@ export default class LoginForm extends React.Component {
         );
       })
       .then(user => {
-        this.props.updateUser(user);
-        this.setState({
-          submitting: false
-        });
+        this.setState(
+          {
+            submitting: false
+          },
+          () => this.props.updateUser(user)
+        );
       })
       .catch(error => {
         console.log("error", error);
@@ -153,9 +156,9 @@ export default class LoginForm extends React.Component {
             <label htmlFor="username">Пользователь</label>
             <input
               type="text"
-              className={
-                errors.username ? "form-control border-red" : "form-control"
-              }
+              className={classNames("form-control", {
+                "border-red": errors.username
+              })}
               id="username"
               placeholder="Пользователь"
               name="username"
@@ -171,9 +174,9 @@ export default class LoginForm extends React.Component {
             <label htmlFor="password">Пароль</label>
             <input
               type="password"
-              className={
-                errors.password ? "form-control border-red" : "form-control"
-              }
+              className={classNames("form-control", {
+                "border-red": errors.password
+              })}
               id="password"
               placeholder="Пароль"
               name="password"
@@ -189,11 +192,9 @@ export default class LoginForm extends React.Component {
             <label htmlFor="repeatPassword">Повторите пароль</label>
             <input
               type="password"
-              className={
-                errors.repeatPassword
-                  ? "form-control border-red"
-                  : "form-control"
-              }
+              className={classNames("form-control", {
+                "border-red": errors.repeatPassword
+              })}
               id="repeatPassword"
               placeholder="Повторите пароль"
               name="repeatPassword"
