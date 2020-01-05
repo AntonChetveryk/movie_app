@@ -23,14 +23,15 @@ export default class LoginForm extends React.Component {
     }));
   };
 
-  handleBlur = () => {
-    //console.log("on blur");
+  handleBlur = event => {
+    const { name } = event.target;
     const errors = this.validateFields();
-    if (Object.keys(errors).length > 0) {
+    const error = errors[name];
+    if (error) {
       this.setState(prevState => ({
         errors: {
           ...prevState.errors,
-          ...errors
+          [name]: error
         }
       }));
     }

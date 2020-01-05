@@ -68,16 +68,16 @@ export default class App extends React.Component {
     this.setState(this.initialState);
   };
 
-  // componentDidMount() {
-  //   const session_id = cookies.get("session_id");
-  //   if (session_id) {
-  //     fetchApi(
-  //       `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
-  //     ).then(user => {
-  //       this.updateUser(user);
-  //     });
-  //   }
-  // }
+  componentDidMount() {
+    const session_id = cookies.get("session_id");
+    if (session_id) {
+      fetchApi(
+        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
+      ).then(user => {
+        this.updateUser(user);
+      });
+    }
+  }
 
   render() {
     const { filters, page, total_pages, user } = this.state;

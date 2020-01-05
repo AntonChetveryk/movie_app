@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MovieItem from "./MovieItem";
 import { API_URL, API_KEY_3 } from "../../api/api";
 import Spinner from "../../img/spinner.gif";
-const queryString = require("query-string");
+import queryString from "query-string";
 
 export default class MovieList extends Component {
   constructor() {
