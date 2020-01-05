@@ -17,7 +17,7 @@ export default class Filters extends React.Component {
     } = this.props;
     return (
       <form className="mb-3">
-        <button type="button" className="mb-2" onClick={onReset}>
+        <button type="button" className="btn btn-light mb-2" onClick={onReset}>
           Сбросить фильтры
         </button>
         <SortBy sort_by={sort_by} onChangeFilters={onChangeFilters} />
