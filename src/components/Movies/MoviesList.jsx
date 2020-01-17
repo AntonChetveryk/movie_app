@@ -2,6 +2,7 @@ import React from "react";
 import MovieItem from "./MovieItem";
 import Spinner from "../../img/spinner.gif";
 import PropTypes from "prop-types";
+import MoviesHOC from "./MoviesHOC";
 
 const MoviesList = ({ movies, isLoading }) => (
   <div className="row movies-list-container">
@@ -27,4 +28,4 @@ MoviesList.propTypes = {
   movies: PropTypes.array.isRequired
 };
 
-export default MoviesList;
+export default MoviesHOC(MoviesList);
