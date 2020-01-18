@@ -1,7 +1,5 @@
 import React from "react";
-//import MoviesList from "./MoviesList";
-import { API_URL, API_KEY_3 } from "../../api/api";
-import queryString from "query-string";
+import CallApi from "../../api/api";
 
 export default Component =>
   class MovieHOC extends React.Component {
@@ -16,38 +14,31 @@ export default Component =>
     getMovies = (filters, page) => {
       const { sort_by, primary_release_year, with_genres } = filters;
       const queryStringParams = {
-        api_key: API_KEY_3,
         language: "ru-RU",
         sort_by,
         page,
         primary_release_year
       };
+
       const { onChangeTotalPage } = this.props;
+
       if (with_genres.length > 0) {
         queryStringParams.with_genres = with_genres.join(",");
       }
-      const link = `${API_URL}/discover/movie?${queryString.stringify(
-        queryStringParams
-      )}`;
 
       this.setState({
         isLoading: !this.state.isLoading
       });
 
-      fetch(link)
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          this.setState({
-            isLoading: !this.state.isLoading
-          });
-          this.setState({
-            movies: data.results
-          });
-
-          onChangeTotalPage(data.total_pages);
+      CallApi.get("/discover/movie", {
+        params: queryStringParams
+      }).then(data => {
+        this.setState({
+          isLoading: !this.state.isLoading,
+          movies: data.results
         });
+        onChangeTotalPage(data.total_pages);
+      });
     };
 
     componentDidMount() {
@@ -67,6 +58,8 @@ export default Component =>
     render() {
       const { movies, isLoading } = this.state;
 
-      return <Component movies={movies} isLoading={isLoading} />;
+      return (
+        <Component {...this.props} movies={movies} isLoading={isLoading} />
+      );
     }
   };
