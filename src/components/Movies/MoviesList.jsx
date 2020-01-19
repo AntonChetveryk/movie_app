@@ -12,7 +12,7 @@ const MoviesList = ({ movies, isLoading }) => (
       movies.map(movie => {
         return (
           <div key={movie.id} className="col-6 mb-4">
-            <MovieItem item={movie} />
+            <MovieItem item={movie} movie_id={movie.id} />
           </div>
         );
       })
