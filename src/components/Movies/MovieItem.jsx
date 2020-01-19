@@ -18,7 +18,7 @@ class MovieItem extends React.Component {
       favorite: !prevState.favorite
     }));
     console.log(this.props.movie_id);
-    CallApi.post("/account/{account_id}/watchlist", {
+    CallApi.post("/account/watchlist", {
       params: {
         session_id: "22b943ab41adab395551d1b2fd039090d15526ac"
       },
