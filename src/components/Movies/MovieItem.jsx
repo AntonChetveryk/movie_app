@@ -1,11 +1,12 @@
 import React from "react";
-import CallApi from "../../api/api";
+//import CallApi from "../../api/api";
 import starFalse from "../../img/star_border-24px.svg";
 import starTrue from "../../img/star-24px.svg";
 import bookmarkTrue from "../../img/bookmark-24px.svg";
 import bookmarkFalse from "../../img/bookmark_border-24px.svg";
 
 import AppContextHOC from "../HOC/AppContextHOC";
+import CallApi from "../../api/api";
 
 class MovieItem extends React.Component {
   state = {
@@ -14,26 +15,54 @@ class MovieItem extends React.Component {
   };
 
   onClickStar = () => {
+    const API_KEY_3 = "b3ff350532467eb0b07cf18d16f4a254";
+    const session_id = this.props.session_id;
+    const link = `https://api.themoviedb.org/3/account?api_key=${API_KEY_3}&session_id=${session_id}`;
+
     this.setState(prevState => ({
       favorite: !prevState.favorite
     }));
     console.log(this.props.movie_id);
-    CallApi.post("/account/favorite", {
-      params: {
-        session_id: "22b943ab41adab395551d1b2fd039090d15526ac"
-      },
-      body: {
-        media_type: "movie",
-        media_id: this.props.movie_id,
-        favorite: true
-      }
-    });
+    fetch(link)
+      .then(response => response.json())
+      .then(account => account.id)
+      .then(accountId =>
+        CallApi.post(`/account/${accountId}/favorite`, {
+          params: {
+            session_id: this.props.session_id
+          },
+          body: {
+            media_type: "movie",
+            media_id: this.props.movie_id,
+            favorite: true
+          }
+        })
+      );
   };
 
   onClickBookmark = () => {
+    const API_KEY_3 = "b3ff350532467eb0b07cf18d16f4a254";
+    const session_id = this.props.session_id;
+    const link = `https://api.themoviedb.org/3/account?api_key=${API_KEY_3}&session_id=${session_id}`;
+
     this.setState(prevState => ({
       watchlist: !prevState.watchlist
     }));
+    fetch(link)
+      .then(response => response.json())
+      .then(account => account.id)
+      .then(accountId =>
+        CallApi.post(`/account/${accountId}/watchlist`, {
+          params: {
+            session_id: this.props.session_id
+          },
+          body: {
+            media_type: "movie",
+            media_id: this.props.movie_id,
+            watchlist: true
+          }
+        })
+      );
   };
 
   render() {
