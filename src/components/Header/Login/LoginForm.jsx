@@ -98,7 +98,14 @@ class LoginForm extends React.Component {
           },
           () => this.props.updateUser(user)
         );
+        return user.id;
       })
+      .then(userID =>
+        CallApi.get(`/account/${userID}/favorite/movies`, {
+          params: { language: "ru-RU", session_id: this.props.session_id }
+        })
+      )
+      .then(favorits => this.props.updateFavorits(favorits.results))
       .catch(error => {
         console.log("error", error);
         this.setState({

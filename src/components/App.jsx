@@ -14,6 +14,7 @@ export default class App extends React.Component {
     this.initialState = {
       user: null,
       session_id: null,
+      favorits: [],
       filters: {
         sort_by: "popularity.desc",
         primary_release_year: "2019",
@@ -28,6 +29,12 @@ export default class App extends React.Component {
   updateUser = user => {
     this.setState({
       user
+    });
+  };
+
+  updateFavorits = favorits => {
+    this.setState({
+      favorits
     });
   };
 
@@ -90,7 +97,14 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { filters, page, total_pages, user, session_id } = this.state;
+    const {
+      filters,
+      page,
+      total_pages,
+      user,
+      session_id,
+      favorits
+    } = this.state;
     return (
       <AppContext.Provider
         value={{
@@ -98,7 +112,9 @@ export default class App extends React.Component {
           updateUser: this.updateUser,
           session_id: session_id,
           updateSessionId: this.updateSessionId,
-          onLogOut: this.onLogOut
+          onLogOut: this.onLogOut,
+          updateFavorits: this.updateFavorits,
+          favorits: favorits
         }}
       >
         <div>
