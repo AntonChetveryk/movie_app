@@ -3,6 +3,7 @@ import Filters from "./Filters/Filters";
 import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
 import { API_URL, API_KEY_3, fetchApi } from "../api/api";
+import CallApi from "../api/api";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -15,6 +16,7 @@ export default class App extends React.Component {
       user: null,
       session_id: null,
       favorits: [],
+      watchlists: [],
       filters: {
         sort_by: "popularity.desc",
         primary_release_year: "2019",
@@ -35,6 +37,12 @@ export default class App extends React.Component {
   updateFavorits = favorits => {
     this.setState({
       favorits
+    });
+  };
+
+  updateWatchlists = watchlists => {
+    this.setState({
+      watchlists
     });
   };
 
@@ -79,20 +87,34 @@ export default class App extends React.Component {
     });
   };
 
-  onReset = (event, genres) => {
+  onReset = event => {
     event.preventDefault();
     this.setState(this.initialState);
   };
 
+  getFavorites = userID => {
+    CallApi.get(`/account/${userID}/favorite/movies`, {
+      params: { language: "ru-RU", session_id: this.state.session_id }
+    }).then(favorits => this.updateFavorits(favorits.results));
+  };
+
+  getWatchlists = userID => {
+    CallApi.get(`/account/${userID}/watchlist/movies`, {
+      params: { language: "ru-RU", session_id: this.state.session_id }
+    }).then(watchlists => this.updateWatchlists(watchlists.results));
+  };
   componentDidMount() {
     const session_id = cookies.get("session_id");
     if (session_id) {
       fetchApi(
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
-      ).then(user => {
-        this.updateUser(user);
-        this.updateSessionId(session_id);
-      });
+      )
+        .then(user => {
+          this.updateUser(user);
+          this.updateSessionId(session_id);
+        })
+        .then(() => this.getWatchlists(this.state.user.id))
+        .then(() => this.getFavorites(this.state.user.id));
     }
   }
 
@@ -103,7 +125,8 @@ export default class App extends React.Component {
       total_pages,
       user,
       session_id,
-      favorits
+      favorits,
+      watchlists
     } = this.state;
     return (
       <AppContext.Provider
@@ -114,7 +137,8 @@ export default class App extends React.Component {
           updateSessionId: this.updateSessionId,
           onLogOut: this.onLogOut,
           updateFavorits: this.updateFavorits,
-          favorits: favorits
+          favorits: favorits,
+          watchlists: watchlists
         }}
       >
         <div>
