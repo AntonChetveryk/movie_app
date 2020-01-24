@@ -6,17 +6,35 @@ import starTrue from "../../img/star-24px.svg";
 
 class Favorite extends React.Component {
   onClickStar = () => {
-    const { user, session_id, item } = this.props;
-    CallApi.post(`/account/${user.id}/favorite`, {
-      params: {
-        session_id: session_id
-      },
-      body: {
-        media_type: "movie",
-        media_id: item.id,
-        favorite: true
+    if (this.props.user) {
+      const { user, session_id, item, getFavorites, favorits } = this.props;
+      const favoriteIdArr = favorits.map(watchlists => watchlists.id);
+      if (favoriteIdArr.includes(item.id)) {
+        CallApi.post(`/account/${user.id}/favorite`, {
+          params: {
+            session_id: session_id
+          },
+          body: {
+            media_type: "movie",
+            media_id: item.id,
+            favorite: false
+          }
+        }).then(() => getFavorites(user.id));
+      } else {
+        CallApi.post(`/account/${user.id}/favorite`, {
+          params: {
+            session_id: session_id
+          },
+          body: {
+            media_type: "movie",
+            media_id: item.id,
+            favorite: true
+          }
+        }).then(() => getFavorites(user.id));
       }
-    });
+    } else {
+      alert("Login to use this feature");
+    }
   };
 
   render() {

@@ -60,7 +60,9 @@ export default class App extends React.Component {
     cookies.remove("session_id");
     this.setState({
       session_id: null,
-      user: null
+      user: null,
+      favorits: [],
+      watchlists: []
     });
   };
 
@@ -138,7 +140,9 @@ export default class App extends React.Component {
           onLogOut: this.onLogOut,
           updateFavorits: this.updateFavorits,
           favorits: favorits,
-          watchlists: watchlists
+          watchlists: watchlists,
+          getFavorites: this.getFavorites,
+          getWatchlists: this.getWatchlists
         }}
       >
         <div>

@@ -98,7 +98,13 @@ class LoginForm extends React.Component {
           },
           () => this.props.updateUser(user)
         );
+        return user;
       })
+      .then(user => {
+        this.props.getFavorites(user.id);
+        return user;
+      })
+      .then(user => this.props.getWatchlists(user.id))
 
       .catch(error => {
         console.log("error", error);
