@@ -1,8 +1,6 @@
 import React from "react";
 import Watchlist from "./Watchlist ";
 import Favorite from "./Favorite";
-import AppContextHOC from "../HOC/AppContextHOC";
-//import CallApi from "../../api/api";
 
 class MovieItem extends React.Component {
   render() {
@@ -26,4 +24,4 @@ class MovieItem extends React.Component {
   }
 }
 
-export default AppContextHOC(MovieItem);
+export default MovieItem;

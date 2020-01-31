@@ -17,6 +17,7 @@ export default class App extends React.Component {
       session_id: null,
       favorits: [],
       watchlists: [],
+      showModal: false,
       filters: {
         sort_by: "popularity.desc",
         primary_release_year: "2019",
@@ -27,6 +28,12 @@ export default class App extends React.Component {
     };
     this.state = this.initialState;
   }
+
+  showLoginModal = () => {
+    this.setState(prevState => ({
+      showModal: !prevState.showModal
+    }));
+  };
 
   updateUser = user => {
     this.setState({
@@ -105,6 +112,7 @@ export default class App extends React.Component {
       params: { language: "ru-RU", session_id: this.state.session_id }
     }).then(watchlists => this.updateWatchlists(watchlists.results));
   };
+
   componentDidMount() {
     const session_id = cookies.get("session_id");
     if (session_id) {
@@ -128,21 +136,24 @@ export default class App extends React.Component {
       user,
       session_id,
       favorits,
-      watchlists
+      watchlists,
+      showModal
     } = this.state;
     return (
       <AppContext.Provider
         value={{
           user: user,
-          updateUser: this.updateUser,
+          favorits: favorits,
+          watchlists: watchlists,
           session_id: session_id,
+          showModal: showModal,
+          updateUser: this.updateUser,
           updateSessionId: this.updateSessionId,
           onLogOut: this.onLogOut,
           updateFavorits: this.updateFavorits,
-          favorits: favorits,
-          watchlists: watchlists,
           getFavorites: this.getFavorites,
-          getWatchlists: this.getWatchlists
+          getWatchlists: this.getWatchlists,
+          showLoginModal: this.showLoginModal
         }}
       >
         <div>
