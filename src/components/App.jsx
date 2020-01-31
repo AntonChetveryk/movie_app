@@ -101,15 +101,15 @@ export default class App extends React.Component {
     this.setState(this.initialState);
   };
 
-  getFavorites = userID => {
-    CallApi.get(`/account/${userID}/favorite/movies`, {
-      params: { language: "ru-RU", session_id: this.state.session_id }
+  getFavorites = ({ user, session_id }) => {
+    CallApi.get(`/account/${user.id}/favorite/movies`, {
+      params: { language: "ru-RU", session_id: session_id }
     }).then(favorits => this.updateFavorits(favorits.results));
   };
 
-  getWatchlists = userID => {
-    CallApi.get(`/account/${userID}/watchlist/movies`, {
-      params: { language: "ru-RU", session_id: this.state.session_id }
+  getWatchlists = ({ user, session_id }) => {
+    CallApi.get(`/account/${user.id}/watchlist/movies`, {
+      params: { language: "ru-RU", session_id: session_id }
     }).then(watchlists => this.updateWatchlists(watchlists.results));
   };
 
@@ -118,13 +118,12 @@ export default class App extends React.Component {
     if (session_id) {
       fetchApi(
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
-      )
-        .then(user => {
-          this.updateUser(user);
-          this.updateSessionId(session_id);
-        })
-        .then(() => this.getWatchlists(this.state.user.id))
-        .then(() => this.getFavorites(this.state.user.id));
+      ).then(user => {
+        this.updateUser(user);
+        this.updateSessionId(session_id);
+        this.getFavorites({ user, session_id });
+        this.getWatchlists({ user, session_id });
+      });
     }
   }
 
