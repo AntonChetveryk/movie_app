@@ -5,9 +5,16 @@ import Starborder from "../../img/star_border-24px.svg";
 import Star from "../../img/star-24px.svg";
 
 class Favorite extends React.Component {
+  state = {
+    isLoading: false
+  };
+
   onClick = () => {
     const { user, session_id, item, getFavorites } = this.props;
     if (user) {
+      this.setState({
+        isLoading: true
+      });
       CallApi.post(`/account/${user.id}/favorite`, {
         params: {
           session_id: session_id
@@ -17,7 +24,14 @@ class Favorite extends React.Component {
           media_id: item.id,
           favorite: !this.isFavorite()
         }
-      }).then(() => getFavorites(user.id));
+      }).then(() =>
+        this.setState(
+          {
+            isLoading: false
+          },
+          () => getFavorites({ user, session_id })
+        )
+      );
     } else {
       this.props.showLoginModal();
     }
@@ -29,11 +43,13 @@ class Favorite extends React.Component {
   };
 
   render() {
+    const { isLoading } = this.state;
     return (
       <img
         src={this.isFavorite() ? Star : Starborder}
         alt="star"
         onClick={this.onClick}
+        className={isLoading ? "disable" : null}
       />
     );
   }

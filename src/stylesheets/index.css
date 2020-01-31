@@ -19,3 +19,7 @@ body {
 .border-red {
   border: 1px solid red;
 }
+
+.disable {
+  pointer-events: none;
+}

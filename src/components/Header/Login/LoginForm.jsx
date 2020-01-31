@@ -61,7 +61,7 @@ class LoginForm extends React.Component {
     this.setState({
       submitting: true
     });
-    const { session_id } = this.props;
+    let session_id;
     //1
     CallApi.get(`/authentication/token/new`)
 
@@ -84,11 +84,12 @@ class LoginForm extends React.Component {
         });
       })
       .then(data => {
-        this.props.updateSessionId(data.session_id);
+        session_id = data.session_id;
+        this.props.updateSessionId(session_id);
         //4
         return CallApi.get("/account", {
           params: {
-            session_id: data.session_id
+            session_id: session_id
           }
         });
       })
