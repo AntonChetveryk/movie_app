@@ -1,6 +1,7 @@
 import React from "react";
 import Watchlist from "./Watchlist ";
 import Favorite from "./Favorite";
+import { Link } from "react-router-dom";
 
 class MovieItem extends React.Component {
   render() {
@@ -14,7 +15,9 @@ class MovieItem extends React.Component {
           alt=""
         />
         <div className="card-body">
-          <h6 className="card-title">{item.title}</h6>
+          <Link className="card-title" to={`/movie/${item.id}`}>
+            {item.title}
+          </Link>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
           <Favorite item={item} />
           <Watchlist item={item} />
