@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import classnames from "classnames";
 import Detail from "../Tabs/Detail";
 import Videos from "../Tabs/Videos";
@@ -49,6 +49,7 @@ const Tabs = props => {
           </NavItem>
           <NavItem>
             <NavLink
+              to={`/movie/${item.id}/actors`}
               className={classnames({ active: activeTab === "3" })}
               onClick={() => {
                 toggle("3");
@@ -62,11 +63,7 @@ const Tabs = props => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <Route
-                  exact
-                  path={`/movie/${item.id}/detail`}
-                  component={Detail}
-                />
+                <Route exact path={`/movie/${item.id}`} component={Detail} />
               </Col>
             </Row>
           </TabPane>
