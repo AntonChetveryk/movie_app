@@ -1,7 +1,18 @@
 import React from "react";
+import CallApi from "../../../api/api";
 
-const Videos = props => {
-  return <div>Videos</div>;
-};
+export default class Videos extends React.Component {
+  state = {
+    movies: []
+  };
+  componentDidMount() {
+    CallApi.get(`/movie/${this.props.id}/videos`, {
+      params: { language: "ru-RU" }
+    }).then(res => this.setState({ movies: res.results }));
+  }
 
-export default Videos;
+  render() {
+    const { movies } = this.state;
+    return <div>{movies.map(movie => "Hello")}</div>;
+  }
+}
