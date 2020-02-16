@@ -2,7 +2,7 @@ import React from "react";
 import CallApi from "../../../api/api";
 import Watchlist from "../../Movies/Watchlist ";
 import Favorite from "../../Movies/Favorite";
-import Tabs from "../Tabs/Tabs";
+import Tabs from "./Tabs/Tabs";
 
 export default class MoviePage extends React.Component {
   state = {

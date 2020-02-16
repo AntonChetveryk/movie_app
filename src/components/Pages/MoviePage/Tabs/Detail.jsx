@@ -21,7 +21,7 @@ export default class Detail extends React.Component {
           <div className="col">
             <b>Продолжительность</b>
           </div>
-          <div className="col">{item.runtime}</div>
+          <div className="col">{`${item.runtime} min`}</div>
         </div>
         <div className="row details">
           <div className="col">
@@ -33,31 +33,55 @@ export default class Detail extends React.Component {
           <div className="col">
             <b>Страна</b>
           </div>
-          <div className="col">Column</div>
+          <div className="col">
+            {item.production_countries.map(country => {
+              return (
+                <p key={country.name} className="bg-blue">
+                  {country.name}
+                </p>
+              );
+            })}
+          </div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Бюджет</b>
           </div>
-          <div className="col">{item.budget}</div>
+          <div className="col">{`${item.budget}$`}</div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Сборы</b>
           </div>
-          <div className="col">{item.revenue}</div>
+          <div className="col">{`${item.revenue}$`}</div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Компания</b>
           </div>
-          <div className="col">Column</div>
+          <div className="col">
+            {item.production_companies.map(genre => {
+              return (
+                <p key={genre.name} className="bg-blue">
+                  {genre.name}
+                </p>
+              );
+            })}
+          </div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Жанры</b>
           </div>
-          <div className="col">Column</div>
+          <div className="col">
+            {item.genres.map(genre => {
+              return (
+                <p key={genre.name} className="bg-blue">
+                  {genre.name}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </div>
     );

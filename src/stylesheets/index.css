@@ -13,7 +13,6 @@ body {
 .loading {
   display: block;
   margin: auto;
-  margin-top: 35%;
 }
 
 .invalid-feedback {
@@ -53,4 +52,20 @@ body {
 .details:not(:last-child) {
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
+}
+
+.details:last-child {
+  border-top: 1px solid lightgray;
+}
+
+.bg-blue {
+  background-color: blue;
+  border-radius: 5px;
+  text-align: center;
+  color: #fdfdfd;
+  font-weight: bold;
+  font-size: 0.8rem;
+  width: fit-content;
+  padding: 5px;
+  margin-bottom: 5px;
 }

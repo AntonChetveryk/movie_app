@@ -20,7 +20,7 @@ const Tabs = props => {
         </NavItem>
         <NavItem>
           <NavLink to={`/movie/${item.id}/videos`} tag={NavLinkRouter}>
-            Похожие фильмы
+            Видео
           </NavLink>
         </NavItem>
         <NavItem>
