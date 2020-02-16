@@ -13,7 +13,7 @@ export default class Credits extends React.Component {
       isLoading: true
     });
     CallApi.get(`/movie/${item.id}/credits`).then(res =>
-      this.setState({ avatars: res.cast })
+      this.setState({ avatars: res.cast, isLoading: false })
     );
   }
 
