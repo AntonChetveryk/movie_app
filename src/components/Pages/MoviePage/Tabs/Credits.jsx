@@ -1,6 +1,6 @@
 import React from "react";
 import CallApi from "../../../../api/api";
-import Spinner from "../../../../img/spinner.gif";
+import Loader from "../../../UI/Loader";
 
 export default class Credits extends React.Component {
   state = {
@@ -22,7 +22,7 @@ export default class Credits extends React.Component {
     return (
       <div className="avatars-container">
         {isLoading ? (
-          <img src={Spinner} alt="loading" className="loading" />
+          <Loader />
         ) : (
           avatars.map(avatar => {
             return (

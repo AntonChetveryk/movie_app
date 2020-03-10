@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Switch } from "react-router";
 import { Row, Col } from "reactstrap";
+import Loader from "../../UI/Loader";
 
 import CallApi from "../../../api/api";
 import MovieInfo from "./Tabs/MovieInfo";
-import Spinner from "../../../img/spinner.gif";
 import Detail from "./Tabs/Detail";
 import Videos from "./Tabs/Videos";
 import Credits from "./Tabs/Credits";
@@ -28,7 +28,7 @@ export default class MoviePage extends React.Component {
     return (
       <div className="container">
         {isLoading ? (
-          <img src={Spinner} alt="loading" className="loading" />
+          <Loader />
         ) : (
           <>
             <MovieInfo movie={movie} />
