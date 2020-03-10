@@ -8,11 +8,11 @@ export default class Credits extends React.Component {
     isLoading: false
   };
   componentDidMount() {
-    const { movie } = this.props;
+    const { match } = this.props;
     this.setState({
       isLoading: true
     });
-    CallApi.get(`/movie/${movie.id}/credits`).then(res =>
+    CallApi.get(`/movie/${match.params.id}/credits`).then(res =>
       this.setState({ avatars: res.cast, isLoading: false })
     );
   }

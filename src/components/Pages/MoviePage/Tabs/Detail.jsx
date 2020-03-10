@@ -34,13 +34,13 @@ export default class Detail extends React.Component {
             <b>Страна</b>
           </div>
           <div className="col">
-            {movie.production_countries.map(country => {
+            {/* {movie.production_countries.map(country => {
               return (
                 <p key={country.name} className="bg-blue">
                   {country.name}
                 </p>
               );
-            })}
+            })} */}
           </div>
         </div>
         <div className="row details">
@@ -60,13 +60,13 @@ export default class Detail extends React.Component {
             <b>Компания</b>
           </div>
           <div className="col">
-            {movie.production_companies.map(genre => {
+            {/* {movie.production_companies.map(genre => {
               return (
                 <p key={genre.name} className="bg-blue">
                   {genre.name}
                 </p>
               );
-            })}
+            })} */}
           </div>
         </div>
         <div className="row details">
@@ -74,13 +74,13 @@ export default class Detail extends React.Component {
             <b>Жанры</b>
           </div>
           <div className="col">
-            {movie.genres.map(genre => {
+            {/* {movie.genres.map(genre => {
               return (
                 <p key={genre.name} className="bg-blue">
                   {genre.name}
                 </p>
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>

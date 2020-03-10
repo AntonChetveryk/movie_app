@@ -6,8 +6,8 @@ export default class Videos extends React.Component {
     videos: []
   };
   componentDidMount() {
-    const { movie } = this.props;
-    CallApi.get(`/movie/${movie.id}/videos`, {
+    const { match } = this.props;
+    CallApi.get(`/movie/${match.params.id}/videos`, {
       params: { language: "ru-RU" }
     }).then(res => this.setState({ videos: res.results }));
   }
