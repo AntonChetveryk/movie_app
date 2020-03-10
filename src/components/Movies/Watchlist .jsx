@@ -9,7 +9,7 @@ class Watchlist extends React.Component {
     isLoading: false
   };
   onClick = () => {
-    const { user, session_id, item, getWatchlists } = this.props;
+    const { user, session_id, movie, getWatchlists } = this.props;
     if (user) {
       this.setState({
         isLoading: true
@@ -20,7 +20,7 @@ class Watchlist extends React.Component {
         },
         body: {
           media_type: "movie",
-          media_id: item.id,
+          media_id: movie.id,
           watchlist: !this.isWatchlist()
         }
       }).then(() =>
@@ -37,8 +37,8 @@ class Watchlist extends React.Component {
   };
 
   isWatchlist = () => {
-    const { item, watchlists } = this.props;
-    return watchlists.findIndex(movie => movie.id === item.id) !== -1;
+    const { movie, watchlists } = this.props;
+    return watchlists.findIndex(item => item.id === movie.id) !== -1;
   };
 
   render() {

@@ -2,39 +2,39 @@ import React from "react";
 
 export default class Detail extends React.Component {
   render() {
-    const { item } = this.props;
+    const { movie } = this.props;
     return (
       <div>
         <div className="row details">
           <div className="col">
             <b>Статус</b>
           </div>
-          <div className="col ">{item.status}</div>
+          <div className="col ">{movie.status}</div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Дата выхода</b>
           </div>
-          <div className="col">{item.release_date}</div>
+          <div className="col">{movie.release_date}</div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Продолжительность</b>
           </div>
-          <div className="col">{`${item.runtime} min`}</div>
+          <div className="col">{`${movie.runtime} min`}</div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Язык оригинала</b>
           </div>
-          <div className="col">{item.original_language}</div>
+          <div className="col">{movie.original_language}</div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Страна</b>
           </div>
           <div className="col">
-            {item.production_countries.map(country => {
+            {movie.production_countries.map(country => {
               return (
                 <p key={country.name} className="bg-blue">
                   {country.name}
@@ -47,20 +47,20 @@ export default class Detail extends React.Component {
           <div className="col">
             <b>Бюджет</b>
           </div>
-          <div className="col">{`${item.budget}$`}</div>
+          <div className="col">{`${movie.budget}$`}</div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Сборы</b>
           </div>
-          <div className="col">{`${item.revenue}$`}</div>
+          <div className="col">{`${movie.revenue}$`}</div>
         </div>
         <div className="row details">
           <div className="col">
             <b>Компания</b>
           </div>
           <div className="col">
-            {item.production_companies.map(genre => {
+            {movie.production_companies.map(genre => {
               return (
                 <p key={genre.name} className="bg-blue">
                   {genre.name}
@@ -74,7 +74,7 @@ export default class Detail extends React.Component {
             <b>Жанры</b>
           </div>
           <div className="col">
-            {item.genres.map(genre => {
+            {movie.genres.map(genre => {
               return (
                 <p key={genre.name} className="bg-blue">
                   {genre.name}

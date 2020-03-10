@@ -10,7 +10,7 @@ class Favorite extends React.Component {
   };
 
   onClick = () => {
-    const { user, session_id, item, getFavorites } = this.props;
+    const { user, session_id, movie, getFavorites } = this.props;
     if (user) {
       this.setState({
         isLoading: true
@@ -21,7 +21,7 @@ class Favorite extends React.Component {
         },
         body: {
           media_type: "movie",
-          media_id: item.id,
+          media_id: movie.id,
           favorite: !this.isFavorite()
         }
       }).then(() =>
@@ -38,8 +38,8 @@ class Favorite extends React.Component {
   };
 
   isFavorite = () => {
-    const { item, favorits } = this.props;
-    return favorits.findIndex(movie => movie.id === item.id) !== -1;
+    const { movie, favorits } = this.props;
+    return favorits.findIndex(item => item.id === movie.id) !== -1;
   };
 
   render() {
