@@ -23,6 +23,15 @@ export default class Videos extends React.Component {
                 <div className="row">
                   <div className="col">
                     <b>{video.name}</b>
+                    <iframe
+                      title={video.name}
+                      width="718"
+                      height="388"
+                      src="https://www.youtube.com/embed/tKNK-dbe0Wg"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
                   </div>
                 </div>
               </div>
