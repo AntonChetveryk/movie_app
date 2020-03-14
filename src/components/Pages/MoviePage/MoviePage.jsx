@@ -15,14 +15,16 @@ export default class MoviePage extends React.Component {
     movie: {},
     isLoading: false
   };
+
   componentDidMount() {
     this.setState({
       isLoading: true
     });
     CallApi.get(`/movie/${this.props.match.params.id}`, {
       params: { language: "ru-RU" }
-    }).then(res => this.setState({ movie: res, isLoading: false }));
+    }).then(response => this.setState({ movie: response, isLoading: false }));
   }
+
   render() {
     const { movie, isLoading } = this.state;
     return (
@@ -32,13 +34,17 @@ export default class MoviePage extends React.Component {
         ) : (
           <>
             <MovieInfo movie={movie} />
-            <Navigation movie={movie} />
+            <Navigation />
             <Row>
               <Col sm="12">
                 <Switch>
-                  <Route exact path="/movie/:id">
-                    <Detail movie={movie} />
-                  </Route>
+                  <Route
+                    exact
+                    path="/movie/:id"
+                    render={routerProps => (
+                      <Detail {...routerProps} movie={movie} />
+                    )}
+                  ></Route>
                   <Route exact path="/movie/:id/videos" component={Videos} />
                   <Route exact path="/movie/:id/credits" component={Credits} />
                 </Switch>

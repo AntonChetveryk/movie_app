@@ -45,13 +45,13 @@ const Detail = ({ movie }) => (
       <div className="col">
         <b>Бюджет</b>
       </div>
-      <div className="col">{`${movie.budget}$`}</div>
+      <div className="col">{movie.budget}</div>
     </div>
     <div className="row details">
       <div className="col">
         <b>Сборы</b>
       </div>
-      <div className="col">{`${movie.revenue}$`}</div>
+      <div className="col">{movie.revenue}</div>
     </div>
     <div className="row details">
       <div className="col">

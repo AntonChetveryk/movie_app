@@ -33,14 +33,13 @@ export default class Videos extends React.Component {
                     <div className="col">
                       <b>{video.name}</b>
                       <Iframe
-                        url="http://www.youtube.com/embed/xDMP3i36naA"
+                        url={`https://www.youtube.com/embed/${video.key}`}
                         title={video.name}
                         width="100%"
                         height="400px"
-                        src={`https://www.youtube.com/embed/${video.key}`}
-                        frameborder="0"
+                        frameBorder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
+                        allowFullScreen
                       />
                     </div>
                   </div>
