@@ -39,12 +39,9 @@ export default class MoviesContainer extends Component {
       })
       .then(data => {
         this.setState({
-          isLoading: !this.state.isLoading
-        });
-        this.setState({
+          isLoading: !this.state.isLoading,
           movies: data.results
         });
-
         onChangeTotalPage(data.total_pages);
       });
   };

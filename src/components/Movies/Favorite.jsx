@@ -5,35 +5,51 @@ import Starborder from "../../img/star_border-24px.svg";
 import Star from "../../img/star-24px.svg";
 
 class Favorite extends React.Component {
+  state = {
+    isLoading: false
+  };
+
   onClick = () => {
-    const { user, session_id, item, getFavorites } = this.props;
+    const { user, session_id, movie, getFavorites } = this.props;
     if (user) {
+      this.setState({
+        isLoading: true
+      });
       CallApi.post(`/account/${user.id}/favorite`, {
         params: {
           session_id: session_id
         },
         body: {
           media_type: "movie",
-          media_id: item.id,
+          media_id: movie.id,
           favorite: !this.isFavorite()
         }
-      }).then(() => getFavorites(user.id));
+      }).then(() =>
+        this.setState(
+          {
+            isLoading: false
+          },
+          () => getFavorites({ user, session_id })
+        )
+      );
     } else {
       this.props.showLoginModal();
     }
   };
 
   isFavorite = () => {
-    const { item, favorits } = this.props;
-    return favorits.findIndex(movie => movie.id === item.id) !== -1;
+    const { movie, favorits } = this.props;
+    return favorits.findIndex(item => item.id === movie.id) !== -1;
   };
 
   render() {
+    const { isLoading } = this.state;
     return (
       <img
         src={this.isFavorite() ? Star : Starborder}
         alt="star"
         onClick={this.onClick}
+        className={isLoading ? "disable" : null}
       />
     );
   }
