@@ -1,14 +1,16 @@
 import React from "react";
 
-export default class SortByYears extends React.Component {
-  getYears = (from, to) => {
-    let years = [];
-    for (let i = from; i <= to; i++) {
-      years.push(i);
-    }
-    return years;
-  };
+function getYears(from, to) {
+  let years = [];
+  for (let i = from; i <= to; i++) {
+    years.push(i);
+  }
+  return years;
+}
 
+const years = getYears(1950, 2025);
+
+export default class SortByYears extends React.PureComponent {
   render() {
     const { primary_release_year, onChangeFilters } = this.props;
     return (
@@ -21,7 +23,7 @@ export default class SortByYears extends React.Component {
           id="primary_release_year"
           name="primary_release_year"
         >
-          {this.getYears(1950, 2025).map(option => (
+          {years.map(option => (
             <option key={option} value={option}>
               {option}
             </option>

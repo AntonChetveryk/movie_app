@@ -1,75 +1,126 @@
 import React from "react";
-import Filters from "./Filters/Filters";
-import MoviesList from "./Movies/MoviesList";
+
+import Header from "./Header/Header";
+import MoviesPage from "./Pages/MoviesPage/MoviesPage";
+import MoviePage from "./Pages/MoviePage/MoviePage";
+import { API_URL, API_KEY_3, fetchApi } from "../api/api";
+import CallApi from "../api/api";
+import Cookies from "universal-cookie";
+import { BrowserRouter, Route } from "react-router-dom";
+
+const cookies = new Cookies();
+export const AppContext = React.createContext();
 
 export default class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      filters: {
-        sort_by: "popularity.desc",
-        primary_release_year: "2019"
-      },
-      page: 1,
-      total_pages: ""
+    this.initialState = {
+      user: null,
+      session_id: null,
+      favorits: [],
+      watchlists: [],
+      showModal: false
     };
+    this.state = this.initialState;
   }
 
-  onChangeFilters = event => {
-    console.log("OnChange", event.target.name, event.target.value);
-    const newFilters = {
-      ...this.state.filters,
-      [event.target.name]: event.target.value
-    };
-    this.setState(state => ({
-      filters: newFilters
+  showLoginModal = () => {
+    this.setState(prevState => ({
+      showModal: !prevState.showModal
     }));
   };
 
-  onChangePage = page => {
+  updateUser = user => {
     this.setState({
-      // page: page
-      page
+      user
     });
   };
 
-  setTotalPage = total_pages => {
+  updateFavorits = favorits => {
     this.setState({
-      total_pages
+      favorits
     });
   };
+
+  updateWatchlists = watchlists => {
+    this.setState({
+      watchlists
+    });
+  };
+
+  updateSessionId = session_id => {
+    cookies.set("session_id", session_id, {
+      path: "/",
+      maxAge: 2592000
+    });
+    this.setState({
+      session_id
+    });
+  };
+
+  onLogOut = () => {
+    cookies.remove("session_id");
+    this.setState({
+      session_id: null,
+      user: null,
+      favorits: [],
+      watchlists: []
+    });
+  };
+
+  getFavorites = ({ user, session_id }) => {
+    CallApi.get(`/account/${user.id}/favorite/movies`, {
+      params: { language: "ru-RU", session_id: session_id }
+    }).then(favorits => this.updateFavorits(favorits.results));
+  };
+
+  getWatchlists = ({ user, session_id }) => {
+    CallApi.get(`/account/${user.id}/watchlist/movies`, {
+      params: { language: "ru-RU", session_id: session_id }
+    }).then(watchlists => this.updateWatchlists(watchlists.results));
+  };
+
+  componentDidMount() {
+    const session_id = cookies.get("session_id");
+    if (session_id) {
+      fetchApi(
+        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
+      ).then(user => {
+        this.updateUser(user);
+        this.updateSessionId(session_id);
+        this.getFavorites({ user, session_id });
+        this.getWatchlists({ user, session_id });
+      });
+    }
+  }
 
   render() {
-    //console.log("App render");
-    const { filters, page, total_pages } = this.state;
+    const { user, session_id, favorits, watchlists, showModal } = this.state;
     return (
-      <div className="container">
-        <div className="row mt-4">
-          <div className="col-4">
-            <div className="card" style={{ width: "100%" }}>
-              <div className="card-body">
-                <h3>Фильтры:</h3>
-                <Filters
-                  page={page}
-                  filters={filters}
-                  onChangeFilters={this.onChangeFilters}
-                  onChangePage={this.onChangePage}
-                  total_pages={total_pages}
-                />
-              </div>
-            </div>
+      <BrowserRouter>
+        <AppContext.Provider
+          value={{
+            user: user,
+            favorits: favorits,
+            watchlists: watchlists,
+            session_id: session_id,
+            showModal: showModal,
+            updateUser: this.updateUser,
+            updateSessionId: this.updateSessionId,
+            onLogOut: this.onLogOut,
+            updateFavorits: this.updateFavorits,
+            getFavorites: this.getFavorites,
+            getWatchlists: this.getWatchlists,
+            showLoginModal: this.showLoginModal
+          }}
+        >
+          <div>
+            <Header user={user} />
+            <Route exact path="/" component={MoviesPage} />
+            <Route path="/movie/:id" component={MoviePage} />
           </div>
-          <div className="col-8">
-            <MoviesList
-              filters={filters}
-              page={page}
-              onChangePage={this.onChangePage}
-              total_pages={total_pages}
-              setTotalPage={this.setTotalPage}
-            />
-          </div>
-        </div>
-      </div>
+        </AppContext.Provider>
+      </BrowserRouter>
     );
   }
 }
