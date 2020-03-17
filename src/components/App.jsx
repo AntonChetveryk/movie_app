@@ -7,11 +7,17 @@ import { API_URL, API_KEY_3, fetchApi } from "../api/api";
 import CallApi from "../api/api";
 import Cookies from "universal-cookie";
 import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  actionCreatorLogOut,
+  actionCreatorUpdateSessionId
+} from "../actions/actions";
 
 const cookies = new Cookies();
+
 export const AppContext = React.createContext();
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
     this.initialState = {
@@ -124,3 +130,26 @@ export default class App extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    session_id: state.session_id,
+    isAuth: state.isAuth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateAuth: (user, session_id) =>
+      dispatch(
+        actionCreatorUpdateSessionId({
+          user,
+          session_id
+        })
+      )
+    //onLogOut: () => dispatch(actionCreatorLogOut())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
