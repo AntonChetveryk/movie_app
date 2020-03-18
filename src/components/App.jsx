@@ -87,7 +87,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    const session_id = cookies.get("session_id");
+    const { session_id } = this.state;
     if (session_id) {
       fetchApi(
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
@@ -101,7 +101,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { user, session_id, favorits, watchlists, showModal } = this.state;
+    const { user, favorits, watchlists, showModal } = this.state;
+    const { session_id, updateSessionId } = this.props;
+
     return (
       <BrowserRouter>
         <AppContext.Provider
@@ -109,7 +111,7 @@ class App extends React.Component {
             user: user,
             favorits: favorits,
             watchlists: watchlists,
-            session_id: session_id,
+            session_id,
             showModal: showModal,
             updateUser: this.updateUser,
             updateSessionId: this.updateSessionId,
@@ -133,18 +135,15 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
-    session_id: state.session_id,
-    isAuth: state.isAuth
+    session_id: state.session_id
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateAuth: (user, session_id) =>
+    updateSessionId: session_id =>
       dispatch(
         actionCreatorUpdateSessionId({
-          user,
           session_id
         })
       )
