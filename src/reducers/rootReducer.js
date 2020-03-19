@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import updateSessionId from "./updateSessionId";
+import authReducer from "./authReducer";
 
 export default combineReducers({
-  updateSessionId
+  auth: authReducer
 });

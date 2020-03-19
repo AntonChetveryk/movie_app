@@ -9,8 +9,13 @@ import Cookies from "universal-cookie";
 import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-  actionCreatorLogOut,
-  actionCreatorUpdateSessionId
+  updateSessionID,
+  updateUser,
+  showLoginModal,
+  onLogOut,
+  toggleLoginModal,
+  updateFavoriteMovies,
+  updateWatchlistMovies
 } from "../actions/actions";
 
 const cookies = new Cookies();
@@ -42,18 +47,6 @@ class App extends React.Component {
     });
   };
 
-  updateFavorits = favorits => {
-    this.setState({
-      favorits
-    });
-  };
-
-  updateWatchlists = watchlists => {
-    this.setState({
-      watchlists
-    });
-  };
-
   updateSessionId = session_id => {
     cookies.set("session_id", session_id, {
       path: "/",
@@ -74,6 +67,18 @@ class App extends React.Component {
     });
   };
 
+  updateFavorits = favorits => {
+    this.setState({
+      favorits
+    });
+  };
+
+  updateWatchlists = watchlists => {
+    this.setState({
+      watchlists
+    });
+  };
+
   getFavorites = ({ user, session_id }) => {
     CallApi.get(`/account/${user.id}/favorite/movies`, {
       params: { language: "ru-RU", session_id: session_id }
@@ -87,7 +92,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    const { session_id } = this.state;
+    const session_id = cookies.get("session_id");
     if (session_id) {
       fetchApi(
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
@@ -101,8 +106,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { user, favorits, watchlists, showModal } = this.state;
-    const { session_id, updateSessionId } = this.props;
+    const { user, favorits, watchlists, showModal, session_id } = this.state;
 
     return (
       <BrowserRouter>
@@ -111,7 +115,7 @@ class App extends React.Component {
             user: user,
             favorits: favorits,
             watchlists: watchlists,
-            session_id,
+            session_id: session_id,
             showModal: showModal,
             updateUser: this.updateUser,
             updateSessionId: this.updateSessionId,
@@ -135,20 +139,20 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    session_id: state.session_id
+    user: state.auth.user,
+    session_id: state.auth.session_id,
+    showLoginModal: state.auth.showLoginModal
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateSessionId: session_id =>
-      dispatch(
-        actionCreatorUpdateSessionId({
-          session_id
-        })
-      )
-    //onLogOut: () => dispatch(actionCreatorLogOut())
-  };
+const mapDispatchToProps = {
+  updateSessionID,
+  updateUser,
+  onLogOut,
+  toggleLoginModal,
+  updateFavoriteMovies,
+  updateWatchlistMovies,
+  showLoginModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
