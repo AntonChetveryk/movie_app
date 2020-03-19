@@ -29,7 +29,7 @@ class App extends React.Component {
       user: null,
       session_id: null,
       favorits: [],
-      watchlists: [],
+      //watchlists: [],
       showModal: false
     };
     this.state = this.initialState;
@@ -62,8 +62,8 @@ class App extends React.Component {
     this.setState({
       session_id: null,
       user: null,
-      favorits: [],
-      watchlists: []
+      favorits: []
+      //watchlists: []
     });
   };
 
@@ -73,11 +73,11 @@ class App extends React.Component {
     });
   };
 
-  updateWatchlists = watchlists => {
-    this.setState({
-      watchlists
-    });
-  };
+  // updateWatchlists = watchlists => {
+  //   this.setState({
+  //     watchlists
+  //   });
+  // };
 
   getFavorites = ({ user, session_id }) => {
     CallApi.get(`/account/${user.id}/favorite/movies`, {
@@ -106,7 +106,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { user, favorits, watchlists, showModal, session_id } = this.state;
+    const { user, favorits, showModal, session_id } = this.state;
 
     return (
       <BrowserRouter>
@@ -114,7 +114,7 @@ class App extends React.Component {
           value={{
             user: user,
             favorits: favorits,
-            watchlists: watchlists,
+            watchlists: this.props.watchlists,
             session_id: session_id,
             showModal: showModal,
             updateUser: this.updateUser,

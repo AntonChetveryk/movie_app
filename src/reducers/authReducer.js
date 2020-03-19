@@ -51,7 +51,7 @@ const authReducer = (state = initialState, action) => {
         favorits: action.favorits
       };
     case "UPDATE_WATCHLIST_MOVIES":
-      console.log("watchList");
+      console.log(state, action);
       return {
         ...state,
         watchlists: action.watchlists
