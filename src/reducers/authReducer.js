@@ -6,7 +6,8 @@ const initialState = {
   user: null,
   session_id: cookies.get("session_id"),
   showLoginModal: false,
-  favoriteMovies: []
+  favorits: [],
+  watchlists: []
 };
 
 const authReducer = (state = initialState, action) => {
@@ -44,9 +45,16 @@ const authReducer = (state = initialState, action) => {
         showLoginModal: !state.showLoginModal
       };
     case "UPDATE_FAVORITE_MOVIES":
+      console.log("favorits");
       return {
         ...state,
-        favoriteMovies: action.payload
+        favorits: action.favorits
+      };
+    case "UPDATE_WATCHLIST_MOVIES":
+      console.log("watchList");
+      return {
+        ...state,
+        watchlists: action.watchlists
       };
     default:
       return state;

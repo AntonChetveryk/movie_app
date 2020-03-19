@@ -35,16 +35,16 @@ export const toggleLoginModal = () => {
   };
 };
 
-export const updateFavoriteMovies = movies => {
+export const updateFavoriteMovies = favorits => {
   return {
     type: "UPDATE_FAVORITE_MOVIES",
-    payload: movies
+    favorits
   };
 };
 
-export const updateWatchlistMovies = movies => {
+export const updateWatchlistMovies = watchlists => {
   return {
     type: "UPDATE_WATCHLIST_MOVIES",
-    payload: movies
+    watchlists
   };
 };

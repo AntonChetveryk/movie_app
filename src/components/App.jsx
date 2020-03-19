@@ -88,7 +88,7 @@ class App extends React.Component {
   getWatchlists = ({ user, session_id }) => {
     CallApi.get(`/account/${user.id}/watchlist/movies`, {
       params: { language: "ru-RU", session_id: session_id }
-    }).then(watchlists => this.updateWatchlists(watchlists.results));
+    }).then(watchlists => this.props.updateWatchlistMovies(watchlists.results));
   };
 
   componentDidMount() {
@@ -120,7 +120,8 @@ class App extends React.Component {
             updateUser: this.updateUser,
             updateSessionId: this.updateSessionId,
             onLogOut: this.onLogOut,
-            updateFavorits: this.updateFavorits,
+            // updateFavorits: this.updateFavorits,
+            // updateWatchlists: this.updateWatchlists,
             getFavorites: this.getFavorites,
             getWatchlists: this.getWatchlists,
             showLoginModal: this.showLoginModal
@@ -141,7 +142,9 @@ const mapStateToProps = state => {
   return {
     user: state.auth.user,
     session_id: state.auth.session_id,
-    showLoginModal: state.auth.showLoginModal
+    showLoginModal: state.auth.showLoginModal,
+    favorits: [],
+    watchlists: []
   };
 };
 
