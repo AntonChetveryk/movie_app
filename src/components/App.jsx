@@ -8,14 +8,13 @@ import CallApi from "../api/api";
 import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-  updateSessionID,
+  updateSessionId,
   updateUser,
   showLoginModal,
   onLogOut,
-  toggleLoginModal,
   updateFavoriteMovies,
   updateWatchlistMovies
-} from "../actions/actions";
+} from "../redux/auth/auth.actions";
 
 export const AppContext = React.createContext();
 
@@ -40,7 +39,7 @@ class App extends React.Component {
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
       ).then(user => {
         this.props.updateUser(user);
-        this.props.updateSessionID(session_id);
+        this.props.updateSessionId(session_id);
         this.getFavorites({ user, session_id });
         this.getWatchlists({ user, session_id });
       });
@@ -58,7 +57,7 @@ class App extends React.Component {
             session_id: this.props.session_id,
             showModal: this.props.showModal,
             updateUser: this.props.updateUser,
-            updateSessionId: this.props.updateSessionID,
+            updateSessionId: this.props.updateSessionId,
             onLogOut: this.props.onLogOut,
             getFavorites: this.getFavorites,
             getWatchlists: this.getWatchlists,
@@ -87,10 +86,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  updateSessionID,
+  updateSessionId,
   updateUser,
   onLogOut,
-  toggleLoginModal,
   updateFavoriteMovies,
   updateWatchlistMovies,
   showLoginModal
