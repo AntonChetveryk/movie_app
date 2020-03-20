@@ -20,41 +20,6 @@ import {
 export const AppContext = React.createContext();
 
 class App extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.initialState = {
-  //     user: null,
-  //     session_id: null
-  //   };
-  //   this.state = this.initialState;
-  // }
-
-  // updateUser = user => {
-  //   this.setState({
-  //     user
-  //   });
-  // };
-
-  // updateSessionId = session_id => {
-  //   cookies.set("session_id", session_id, {
-  //     path: "/",
-  //     maxAge: 2592000
-  //   });
-  //   this.setState({
-  //     session_id
-  //   });
-  // };
-
-  // onLogOut = () => {
-  //   cookies.remove("session_id");
-  //   this.setState({
-  //     session_id: null,
-  //     user: null,
-  //     favorits: [],
-  //     watchlists: []
-  //   });
-  // };
-
   getFavorites = ({ user, session_id }) => {
     CallApi.get(`/account/${user.id}/favorite/movies`, {
       params: { language: "ru-RU", session_id: session_id }
@@ -70,12 +35,12 @@ class App extends React.Component {
   componentDidMount() {
     const { session_id } = this.props;
 
-    if (session_id !== "undefined") {
+    if (session_id) {
       fetchApi(
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
       ).then(user => {
-        this.updateUser(user);
-        this.updateSessionId(session_id);
+        this.props.updateUser(user);
+        this.props.updateSessionID(session_id);
         this.getFavorites({ user, session_id });
         this.getWatchlists({ user, session_id });
       });
@@ -83,8 +48,6 @@ class App extends React.Component {
   }
 
   render() {
-    //const { user, session_id } = this.state;
-
     return (
       <BrowserRouter>
         <AppContext.Provider

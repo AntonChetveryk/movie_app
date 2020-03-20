@@ -58,7 +58,6 @@ class LoginForm extends React.Component {
   };
 
   onSubmit = () => {
-    console.log("onSubmit");
     this.setState({
       submitting: true
     });
@@ -102,7 +101,6 @@ class LoginForm extends React.Component {
           },
           () => this.props.updateUser(user)
         );
-        console.log(this.props.session_id);
         this.props.getFavorites({ user, session_id });
         this.props.getWatchlists({ user, session_id });
       })
