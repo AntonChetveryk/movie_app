@@ -1,25 +1,20 @@
-export const updateSessionID = ({ session_id }) => {
+export const updateSessionID = session_id => {
   return {
     type: "UPDATE_SESSION_ID",
-    payload: {
-      session_id
-    }
+    session_id
   };
 };
 
-export const updateUser = ({ user }) => {
+export const updateUser = user => {
   return {
     type: "UPDATE_USER",
-    payload: {
-      user
-    }
+    user
   };
 };
 
-export const showLoginModal = payload => {
+export const showLoginModal = () => {
   return {
-    type: "SHOW_LOGIN_MODAL",
-    payload
+    type: "SHOW_LOGIN_MODAL"
   };
 };
 

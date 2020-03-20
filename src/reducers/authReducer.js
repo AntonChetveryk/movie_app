@@ -5,7 +5,7 @@ const cookies = new Cookies();
 const initialState = {
   user: null,
   session_id: cookies.get("session_id"),
-  showLoginModal: false,
+  showModal: false,
   favorits: [],
   watchlists: []
 };
@@ -13,23 +13,18 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case "UPDATE_SESSION_ID":
-      cookies.set("session_id", action.payload.session_id, {
+      cookies.set("session_id", action.session_id, {
         path: "/",
         maxAge: 2592000
       });
       return {
         ...state,
-        session_id: action.payload.session_id
+        session_id: action.session_id
       };
     case "UPDATE_USER":
       return {
         ...state,
-        user: action.payload.user
-      };
-    case "SHOW_LOGIN_MODAL":
-      return {
-        ...state,
-        showModal: action.payload.showModal
+        user: action.user
       };
 
     case "LOGOUT":
@@ -37,21 +32,23 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         session_id: null,
-        user: null
+        user: null,
+        favorits: [],
+        watchlists: []
       };
-    case "TOGGLE_LOGIN_MODAL":
+
+    case "SHOW_LOGIN_MODAL":
       return {
         ...state,
-        showLoginModal: !state.showLoginModal
+        showModal: !state.showModal
       };
+
     case "UPDATE_FAVORITE_MOVIES":
-      console.log("favorits");
       return {
         ...state,
         favorits: action.favorits
       };
     case "UPDATE_WATCHLIST_MOVIES":
-      console.log(state, action);
       return {
         ...state,
         watchlists: action.watchlists

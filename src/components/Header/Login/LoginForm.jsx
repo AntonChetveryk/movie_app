@@ -58,6 +58,7 @@ class LoginForm extends React.Component {
   };
 
   onSubmit = () => {
+    console.log("onSubmit");
     this.setState({
       submitting: true
     });
@@ -85,6 +86,7 @@ class LoginForm extends React.Component {
       })
       .then(data => {
         session_id = data.session_id;
+
         this.props.updateSessionId(session_id);
         //4
         return CallApi.get("/account", {
@@ -100,6 +102,7 @@ class LoginForm extends React.Component {
           },
           () => this.props.updateUser(user)
         );
+        console.log(this.props.session_id);
         this.props.getFavorites({ user, session_id });
         this.props.getWatchlists({ user, session_id });
       })
