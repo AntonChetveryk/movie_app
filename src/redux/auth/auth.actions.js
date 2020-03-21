@@ -3,14 +3,14 @@ import * as types from "./auth.types";
 export const updateSessionId = session_id => {
   return {
     type: types.UPDATE_SESSION_ID,
-    session_id
+    payload: session_id
   };
 };
 
 export const updateUser = user => {
   return {
     type: types.UPDATE_USER,
-    user
+    payload: user
   };
 };
 
@@ -29,13 +29,13 @@ export const onLogOut = () => {
 export const updateFavoriteMovies = favorits => {
   return {
     type: types.UPDATE_FAVORITE_MOVIES,
-    favorits
+    payload: favorits
   };
 };
 
 export const updateWatchlistMovies = watchlists => {
   return {
     type: types.UPDATE_WATCHLIST_MOVIES,
-    watchlists
+    payload: watchlists
   };
 };

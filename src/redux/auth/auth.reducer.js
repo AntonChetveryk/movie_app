@@ -14,18 +14,18 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.UPDATE_SESSION_ID:
-      cookies.set("session_id", action.session_id, {
+      cookies.set("session_id", action.payload, {
         path: "/",
         maxAge: 2592000
       });
       return {
         ...state,
-        session_id: action.session_id
+        session_id: action.payload
       };
     case types.UPDATE_USER:
       return {
         ...state,
-        user: action.user
+        user: action.payload
       };
 
     case types.LOGOUT:
@@ -47,12 +47,12 @@ const authReducer = (state = initialState, action) => {
     case types.UPDATE_FAVORITE_MOVIES:
       return {
         ...state,
-        favorits: action.favorits
+        favorits: action.payload
       };
     case types.UPDATE_WATCHLIST_MOVIES:
       return {
         ...state,
-        watchlists: action.watchlists
+        watchlists: action.payload
       };
     default:
       return state;
