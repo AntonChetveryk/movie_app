@@ -12,18 +12,14 @@ import {
   onLogOut,
   updateFavoriteMovies,
   updateWatchlistMovies,
-  fetchAuth
+  fetchAuth,
+  fetchFavorites,
+  fetchWatchlists
 } from "../redux/auth/auth.actions";
 
 export const AppContext = React.createContext();
 
 class App extends React.Component {
-  getFavorites = ({ user, session_id }) => {
-    CallApi.get(`/account/${user.id}/favorite/movies`, {
-      params: { language: "ru-RU", session_id: session_id }
-    }).then(favorits => this.props.updateFavoriteMovies(favorits.results));
-  };
-
   getWatchlists = ({ user, session_id }) => {
     CallApi.get(`/account/${user.id}/watchlist/movies`, {
       params: { language: "ru-RU", session_id: session_id }
@@ -47,7 +43,9 @@ class App extends React.Component {
       showLoginModal,
       showModal,
       favorits,
-      watchlists
+      watchlists,
+      fetchFavorites,
+      fetchWatchlists
     } = this.props;
 
     return (
@@ -62,8 +60,8 @@ class App extends React.Component {
             updateAuth: updateAuth,
             onLogOut: onLogOut,
             showLoginModal: showLoginModal,
-            getFavorites: this.getFavorites,
-            getWatchlists: this.getWatchlists
+            getFavorites: fetchFavorites,
+            getWatchlists: fetchWatchlists
           }}
         >
           <div>
@@ -93,7 +91,9 @@ const mapDispatchToProps = {
   updateFavoriteMovies,
   updateWatchlistMovies,
   showLoginModal,
-  fetchAuth
+  fetchAuth,
+  fetchFavorites,
+  fetchWatchlists
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
