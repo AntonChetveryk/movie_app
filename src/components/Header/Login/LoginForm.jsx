@@ -86,7 +86,6 @@ class LoginForm extends React.Component {
       .then(data => {
         session_id = data.session_id;
 
-        this.props.updateSessionId(session_id);
         //4
         return CallApi.get("/account", {
           params: {
@@ -99,7 +98,7 @@ class LoginForm extends React.Component {
           {
             submitting: false
           },
-          () => this.props.updateUser(user)
+          () => this.props.updateAuth({ session_id, user })
         );
         this.props.getFavorites({ user, session_id });
         this.props.getWatchlists({ user, session_id });

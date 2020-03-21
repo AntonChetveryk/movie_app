@@ -1,5 +1,4 @@
-export const UPDATE_SESSION_ID = "UPDATE_SESSION_ID";
-export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_AUTH = "UPDATE_AUTH";
 export const SHOW_LOGIN_MODAL = "SHOW_LOGIN_MODAL";
 export const LOGOUT = "LOGOUT";
 export const UPDATE_FAVORITE_MOVIES = "UPDATE_FAVORITE_MOVIES";

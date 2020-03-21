@@ -1,18 +1,23 @@
 import * as types from "./auth.types";
+import CallApi from "../../api/api";
 
-export const updateSessionId = session_id => {
-  return {
-    type: types.UPDATE_SESSION_ID,
-    payload: session_id
-  };
+export const fetchAuth = session_id => dispatch => {
+  CallApi.get("/account", {
+    params: {
+      session_id
+    }
+  }).then(user => {
+    dispatch(updateAuth({ user, session_id }));
+  });
 };
 
-export const updateUser = user => {
-  return {
-    type: types.UPDATE_USER,
-    payload: user
-  };
-};
+export const updateAuth = ({ session_id, user }) => ({
+  type: types.UPDATE_AUTH,
+  payload: {
+    session_id,
+    user
+  }
+});
 
 export const showLoginModal = () => {
   return {

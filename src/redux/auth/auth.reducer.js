@@ -13,19 +13,15 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.UPDATE_SESSION_ID:
-      cookies.set("session_id", action.payload, {
+    case types.UPDATE_AUTH:
+      cookies.set("session_id", action.payload.session_id, {
         path: "/",
         maxAge: 2592000
       });
       return {
         ...state,
-        session_id: action.payload
-      };
-    case types.UPDATE_USER:
-      return {
-        ...state,
-        user: action.payload
+        session_id: action.payload.session_id,
+        user: action.payload.user
       };
 
     case types.LOGOUT:
