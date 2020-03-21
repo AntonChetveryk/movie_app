@@ -2,7 +2,7 @@ import * as types from "./auth.types";
 
 export const updateSessionId = session_id => {
   return {
-    type: "UPDATE_SESSION_ID",
+    type: types.UPDATE_SESSION_ID,
     session_id
   };
 };
