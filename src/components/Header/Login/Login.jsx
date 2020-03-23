@@ -14,7 +14,10 @@ class Login extends React.Component {
         >
           Login
         </button>
-        <Modal isOpen={this.props.showModal} toggle={this.props.showLoginModal}>
+        <Modal
+          isOpen={this.props.isShowModal}
+          toggle={this.props.showLoginModal}
+        >
           <ModalBody>
             <LoginForm />
           </ModalBody>

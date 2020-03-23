@@ -24,7 +24,7 @@ export const fetchAuth = session_id => dispatch => {
 };
 
 export const updateAuth = ({ session_id, user }) => ({
-  type: types.UPDATE_AUTH,
+  type: types.FETCH_SUCCESS_AUTH,
   payload: {
     session_id,
     user

@@ -41,7 +41,7 @@ class App extends React.Component {
       updateAuth,
       onLogOut,
       showLoginModal,
-      showModal,
+      isShowModal,
       favorits,
       watchlists,
       fetchFavorites,
@@ -56,7 +56,7 @@ class App extends React.Component {
             favorits: favorits,
             watchlists: watchlists,
             session_id: session_id,
-            showModal: showModal,
+            isShowModal: isShowModal,
             updateAuth: updateAuth,
             onLogOut: onLogOut,
             showLoginModal: showLoginModal,
@@ -79,7 +79,7 @@ const mapStateToProps = state => {
   return {
     user: state.auth.user,
     session_id: state.auth.session_id,
-    showModal: state.auth.showModal,
+    isShowModal: state.auth.isShowModal,
     favorits: state.auth.favorits,
     watchlists: state.auth.watchlists
   };
