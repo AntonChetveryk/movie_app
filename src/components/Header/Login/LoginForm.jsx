@@ -1,7 +1,7 @@
 import React from "react";
 import CallApi from "../../../api/api";
 import classNames from "classnames";
-import AppContextHOC from "../../HOC/AppContextHOC";
+import { withAuth } from "../../../hoc/withAuth";
 
 class LoginForm extends React.Component {
   state = {
@@ -98,10 +98,10 @@ class LoginForm extends React.Component {
           {
             submitting: false
           },
-          () => this.props.updateAuth({ session_id, user })
+          () => this.props.authActions.updateAuth({ session_id, user })
         );
-        this.props.getFavorites({ user, session_id });
-        this.props.getWatchlists({ user, session_id });
+        this.props.authActions.fetchFavorites({ user, session_id });
+        this.props.authActions.fetchWatchlists({ user, session_id });
       })
       .catch(error => {
         console.log("error", error);
@@ -214,4 +214,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default AppContextHOC(LoginForm);
+export default withAuth(LoginForm);

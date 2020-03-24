@@ -1,23 +1,21 @@
 import React from "react";
-import AppContextHOC from "../../HOC/AppContextHOC";
+import { withAuth } from "../../../hoc/withAuth";
 import { Modal, ModalBody } from "reactstrap";
 import LoginForm from "./LoginForm";
 
 class Login extends React.Component {
   render() {
+    const { auth, authActions } = this.props;
     return (
       <div>
         <button
           className="btn btn-success"
           type="button"
-          onClick={this.props.showLoginModal}
+          onClick={authActions.showLoginModal}
         >
           Login
         </button>
-        <Modal
-          isOpen={this.props.isShowModal}
-          toggle={this.props.showLoginModal}
-        >
+        <Modal isOpen={auth.isShowModal} toggle={authActions.showLoginModal}>
           <ModalBody>
             <LoginForm />
           </ModalBody>
@@ -27,4 +25,4 @@ class Login extends React.Component {
   }
 }
 
-export default AppContextHOC(Login);
+export default withAuth(Login);
