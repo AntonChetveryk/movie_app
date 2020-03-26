@@ -25,25 +25,30 @@ export default class Videos extends React.Component {
         {isLoading ? (
           <Loader />
         ) : (
-          videos.map(video => {
-            return (
-              <div className="card" key={video.id}>
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col">
-                      <b>{video.name}</b>
-                      <Iframe
-                        url={`https://www.youtube.com/embed/${video.key}`}
-                        title={video.name}
-                        height="400px"
-                        frameBorder="0"
-                      />
+          <div className="row mt-2">
+            {videos.map(video => {
+              return (
+                <div className="col-6">
+                  <div className="card" key={video.id}>
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col">
+                          <b>{video.name}</b>
+                          <Iframe
+                            url={`https://www.youtube.com/embed/${video.key}`}
+                            title={video.name}
+                            width="100%"
+                            height="400px"
+                            frameBorder="0"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )
-          })
+              )
+            })}
+          </div>
         )}
       </div>
     )
