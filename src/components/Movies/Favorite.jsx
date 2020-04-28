@@ -1,5 +1,5 @@
 import React from "react";
-import AppContextHOC from "../HOC/AppContextHOC";
+import { withAuth } from "../../hoc/withAuth";
 import CallApi from "../../api/api";
 import Starborder from "../../img/star_border-24px.svg";
 import Star from "../../img/star-24px.svg";
@@ -10,14 +10,14 @@ class Favorite extends React.Component {
   };
 
   onClick = () => {
-    const { user, session_id, movie, getFavorites } = this.props;
-    if (user) {
+    const { auth, movie } = this.props;
+    if (auth.user) {
       this.setState({
         isLoading: true
       });
-      CallApi.post(`/account/${user.id}/favorite`, {
+      CallApi.post(`/account/${auth.user.id}/favorite`, {
         params: {
-          session_id: session_id
+          session_id: auth.session_id
         },
         body: {
           media_type: "movie",
@@ -29,17 +29,17 @@ class Favorite extends React.Component {
           {
             isLoading: false
           },
-          () => getFavorites({ user, session_id })
+          () => this.props.authActions.fetchFavorites(auth)
         )
       );
     } else {
-      this.props.showLoginModal();
+      this.props.authActions.showLoginModal();
     }
   };
 
   isFavorite = () => {
-    const { movie, favorits } = this.props;
-    return favorits.findIndex(item => item.id === movie.id) !== -1;
+    const { auth, movie } = this.props;
+    return auth.favorits.findIndex(item => item.id === movie.id) !== -1;
   };
 
   render() {
@@ -55,4 +55,4 @@ class Favorite extends React.Component {
   }
 }
 
-export default AppContextHOC(Favorite);
+export default withAuth(Favorite);

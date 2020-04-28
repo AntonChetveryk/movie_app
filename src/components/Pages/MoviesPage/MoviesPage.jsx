@@ -12,7 +12,7 @@ export default class App extends React.Component {
     this.initialState = {
       filters: {
         sort_by: "popularity.desc",
-        primary_release_year: "2019",
+        primary_release_year: "2020",
         with_genres: []
       },
       page: 1,

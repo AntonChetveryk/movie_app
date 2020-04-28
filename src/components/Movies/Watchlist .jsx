@@ -1,5 +1,5 @@
 import React from "react";
-import AppContextHOC from "../HOC/AppContextHOC";
+import { withAuth } from "../../hoc/withAuth";
 import CallApi from "../../api/api";
 import Bookmark from "../../img/bookmark-24px.svg";
 import Bookmarkborder from "../../img/bookmark_border-24px.svg";
@@ -9,14 +9,14 @@ class Watchlist extends React.Component {
     isLoading: false
   };
   onClick = () => {
-    const { user, session_id, movie, getWatchlists } = this.props;
-    if (user) {
+    const { auth, authActions, movie } = this.props;
+    if (auth.user) {
       this.setState({
         isLoading: true
       });
-      CallApi.post(`/account/${user.id}/watchlist`, {
+      CallApi.post(`/account/${auth.user.id}/watchlist`, {
         params: {
-          session_id: session_id
+          session_id: auth.session_id
         },
         body: {
           media_type: "movie",
@@ -28,17 +28,17 @@ class Watchlist extends React.Component {
           {
             isLoading: false
           },
-          () => getWatchlists({ user, session_id })
+          () => authActions.fetchWatchlists(auth)
         )
       );
     } else {
-      this.props.showLoginModal();
+      authActions.showLoginModal();
     }
   };
 
   isWatchlist = () => {
-    const { movie, watchlists } = this.props;
-    return watchlists.findIndex(item => item.id === movie.id) !== -1;
+    const { auth, movie } = this.props;
+    return auth.watchlists.findIndex(item => item.id === movie.id) !== -1;
   };
 
   render() {
@@ -54,4 +54,4 @@ class Watchlist extends React.Component {
   }
 }
 
-export default AppContextHOC(Watchlist);
+export default withAuth(Watchlist);
