@@ -1,133 +1,133 @@
-import React from "react";
-import CallApi from "../../../api/api";
-import classNames from "classnames";
-import { withAuth } from "../../../hoc/withAuth";
+import React from 'react'
+import CallApi from '../../../api/api'
+import classNames from 'classnames'
+import { withAuth } from '../../../hoc/withAuth'
 
 class LoginForm extends React.Component {
   state = {
-    username: "chetverykanton92@gmail.com",
-    password: "anton1031",
-    repeatPassword: "anton1031",
+    username: 'chetverykanton92@gmail.com',
+    password: 'anton1992',
+    repeatPassword: 'anton1992',
     errors: {},
-    submitting: false
-  };
+    submitting: false,
+  }
 
-  onChange = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState(prevState => ({
+  onChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+    this.setState((prevState) => ({
       [name]: value,
       errors: {
         ...prevState.errors,
         base: null,
-        [name]: null
-      }
-    }));
-  };
+        [name]: null,
+      },
+    }))
+  }
 
-  handleBlur = event => {
-    const { name } = event.target;
-    const errors = this.validateFields();
-    const error = errors[name];
+  handleBlur = (event) => {
+    const { name } = event.target
+    const errors = this.validateFields()
+    const error = errors[name]
     if (error) {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         errors: {
           ...prevState.errors,
-          [name]: error
-        }
-      }));
+          [name]: error,
+        },
+      }))
     }
-  };
+  }
 
   validateFields = () => {
-    const errors = {};
+    const errors = {}
 
-    if (this.state.username === "") {
-      errors.username = "Not empty";
+    if (this.state.username === '') {
+      errors.username = 'Not empty'
     }
 
-    if (this.state.password === "") {
-      errors.password = "Обязательное";
+    if (this.state.password === '') {
+      errors.password = 'Обязательное'
     }
 
     if (this.state.repeatPassword !== this.state.password) {
-      errors.repeatPassword = "Должен быть равен паролю";
+      errors.repeatPassword = 'Должен быть равен паролю'
     }
 
-    return errors;
-  };
+    return errors
+  }
 
   onSubmit = () => {
     this.setState({
-      submitting: true
-    });
-    let session_id;
+      submitting: true,
+    })
+    let session_id
     //1
     CallApi.get(`/authentication/token/new`)
 
-      .then(data => {
+      .then((data) => {
         //2
-        return CallApi.post("/authentication/token/validate_with_login", {
+        return CallApi.post('/authentication/token/validate_with_login', {
           body: {
             username: this.state.username,
             password: this.state.password,
-            request_token: data.request_token
-          }
-        });
+            request_token: data.request_token,
+          },
+        })
       })
-      .then(data => {
+      .then((data) => {
         //3
-        return CallApi.post("/authentication/session/new", {
+        return CallApi.post('/authentication/session/new', {
           body: {
-            request_token: data.request_token
-          }
-        });
+            request_token: data.request_token,
+          },
+        })
       })
-      .then(data => {
-        session_id = data.session_id;
+      .then((data) => {
+        session_id = data.session_id
 
         //4
-        return CallApi.get("/account", {
+        return CallApi.get('/account', {
           params: {
-            session_id: session_id
-          }
-        });
+            session_id: session_id,
+          },
+        })
       })
-      .then(user => {
+      .then((user) => {
         this.setState(
           {
-            submitting: false
+            submitting: false,
           },
           () => this.props.authActions.updateAuth({ session_id, user })
-        );
-        this.props.authActions.fetchFavorites({ user, session_id });
-        this.props.authActions.fetchWatchlists({ user, session_id });
+        )
+        this.props.authActions.fetchFavorites({ user, session_id })
+        this.props.authActions.fetchWatchlists({ user, session_id })
       })
-      .catch(error => {
-        console.log("error", error);
+      .catch((error) => {
+        console.log('error', error)
         this.setState({
           submitting: false,
           errors: {
-            base: error.status_message
-          }
-        });
-      });
-  };
+            base: error.status_message,
+          },
+        })
+      })
+  }
 
-  onLogin = e => {
-    e.preventDefault();
-    const errors = this.validateFields();
+  onLogin = (e) => {
+    e.preventDefault()
+    const errors = this.validateFields()
     if (Object.keys(errors).length > 0) {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         errors: {
           ...prevState.errors,
-          ...errors
-        }
-      }));
+          ...errors,
+        },
+      }))
     } else {
-      this.onSubmit();
+      this.onSubmit()
     }
-  };
+  }
 
   render() {
     const {
@@ -135,8 +135,8 @@ class LoginForm extends React.Component {
       password,
       repeatPassword,
       errors,
-      submitting
-    } = this.state;
+      submitting,
+    } = this.state
     return (
       <div className="form-login-container">
         <form className="form-login">
@@ -147,8 +147,8 @@ class LoginForm extends React.Component {
             <label htmlFor="username">Пользователь</label>
             <input
               type="text"
-              className={classNames("form-control", {
-                "border-red": errors.username
+              className={classNames('form-control', {
+                'border-red': errors.username,
               })}
               id="username"
               placeholder="Пользователь"
@@ -165,8 +165,8 @@ class LoginForm extends React.Component {
             <label htmlFor="password">Пароль</label>
             <input
               type="password"
-              className={classNames("form-control", {
-                "border-red": errors.password
+              className={classNames('form-control', {
+                'border-red': errors.password,
               })}
               id="password"
               placeholder="Пароль"
@@ -183,8 +183,8 @@ class LoginForm extends React.Component {
             <label htmlFor="repeatPassword">Повторите пароль</label>
             <input
               type="password"
-              className={classNames("form-control", {
-                "border-red": errors.repeatPassword
+              className={classNames('form-control', {
+                'border-red': errors.repeatPassword,
               })}
               id="repeatPassword"
               placeholder="Повторите пароль"
@@ -210,8 +210,8 @@ class LoginForm extends React.Component {
           )}
         </form>
       </div>
-    );
+    )
   }
 }
 
-export default withAuth(LoginForm);
+export default withAuth(LoginForm)
