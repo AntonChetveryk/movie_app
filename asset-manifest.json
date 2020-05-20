@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/movie_app/static/css/main.b69caf7c.chunk.css",
+    "main.js": "/movie_app/static/js/main.58dbf3ab.chunk.js",
+    "main.js.map": "/movie_app/static/js/main.58dbf3ab.chunk.js.map",
+    "runtime~main.js": "/movie_app/static/js/runtime~main.175dda75.js",
+    "runtime~main.js.map": "/movie_app/static/js/runtime~main.175dda75.js.map",
+    "static/css/2.17e5ed98.chunk.css": "/movie_app/static/css/2.17e5ed98.chunk.css",
+    "static/js/2.8e41a60b.chunk.js": "/movie_app/static/js/2.8e41a60b.chunk.js",
+    "static/js/2.8e41a60b.chunk.js.map": "/movie_app/static/js/2.8e41a60b.chunk.js.map",
+    "index.html": "/movie_app/index.html",
+    "precache-manifest.cc58419a3004708de01cd6de24c0d3b7.js": "/movie_app/precache-manifest.cc58419a3004708de01cd6de24c0d3b7.js",
+    "service-worker.js": "/movie_app/service-worker.js",
+    "static/css/2.17e5ed98.chunk.css.map": "/movie_app/static/css/2.17e5ed98.chunk.css.map",
+    "static/css/main.b69caf7c.chunk.css.map": "/movie_app/static/css/main.b69caf7c.chunk.css.map",
+    "static/media/bookmark-24px.svg": "/movie_app/static/media/bookmark-24px.84162454.svg",
+    "static/media/bookmark_border-24px.svg": "/movie_app/static/media/bookmark_border-24px.3f1c7930.svg",
+    "static/media/spinner.gif": "/movie_app/static/media/spinner.f894bce2.gif",
+    "static/media/star-24px.svg": "/movie_app/static/media/star-24px.d0367478.svg",
+    "static/media/star_border-24px.svg": "/movie_app/static/media/star_border-24px.f02a9cc4.svg"
+  }
+}
