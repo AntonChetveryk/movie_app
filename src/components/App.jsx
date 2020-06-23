@@ -1,9 +1,9 @@
 import React from 'react'
-
-import Header from './Header/Header'
+import Layout from './Layout'
+// import Header from './Header/Header'
 import MoviesPage from './Pages/MoviesPage/MoviesPage'
 import MoviePage from './Pages/MoviePage/MoviePage'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { withAuth } from '../hoc/withAuth'
 
 class App extends React.Component {
@@ -18,13 +18,14 @@ class App extends React.Component {
   render() {
     const { auth } = this.props
     return (
-      <BrowserRouter basename="movie_app">
-        <div>
-          <Header user={auth.user} />
-          <Route exact path="/" component={MoviesPage} />
-          <Route path="/movie/:id" component={MoviePage} />
-        </div>
-      </BrowserRouter>
+      <Router basename="movie_app">
+        <Switch>
+          <Layout auth={auth}>
+            <Route exact path="/" component={MoviesPage} />
+            <Route path="/movie/:id" component={MoviePage} />
+          </Layout>
+        </Switch>
+      </Router>
     )
   }
 }
